@@ -30,11 +30,4 @@ public class GetTaskService {
                 .doOnNext(task -> log.info("Returned All Tasks"))
                 .doOnError(e -> log.error("Error occurred while retrieving tasks", e));
     }
-
-//    public Flux<Task> getAllTasks() {
-//        return Flux.fromIterable(Arrays.asList(
-//                new Task("1", "Task 1", "Description 1", null),
-//                new Task("2", "Task 2", "Description 2", null)
-//        ));
-//    }
 }
