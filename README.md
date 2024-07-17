@@ -8,7 +8,6 @@ To run the project you will need to have the following installed
 
 * Java 17
 * Docker
-* Docker CLI
 
 This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
 
