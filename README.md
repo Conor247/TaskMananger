@@ -29,7 +29,7 @@ docker-compose up --build
 ```
 * This will create the docker images, volumes and containers for
 * * Task Manager WebApp and expose the Endpoints at Port: ``8084``
-* * MongoDB docker container and expose it at Port: ``27017``
+* * MongoDB and expose it at Port: ``27017``
 
 ```bash
 docker-compose up -d
