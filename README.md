@@ -1,6 +1,6 @@
 # Task Manager
 
-This is a Spring Webflux Reactive CRUD Application that interacts with MongoDB.
+This is a Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ This project uses gradle as a build tool. It contains the gradlew wrapper script
 
 To interact with the Endpoints I recommend using PostMan.
 
-To visualise the MongoDB I recommend using MongoDB Compass.
+To visualise the MongoDB I recommend using MongoDB Compass although the GET endpoints do return Tasks in JSON format.
 
 ## Running
 
