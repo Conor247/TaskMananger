@@ -19,15 +19,15 @@ To visualise the MongoDB I recommend using MongoDB Compass.
 
 Open a bash terminal at the project directory and use the following commands to set up your environment.
 
-``bash
+```bash
 docker-compose up -d
-``
-* This will create the mongoDB docker container which is exposed at Port: 27017
+```
+* This will create the mongoDB docker container which is exposed at Port: ``27017``
 
-``bash
+```bash
 ./gradlew bootRun
-``
-* This will run the WebApp locally and expose the Endpoints at Port: 8084
+```
+* This will run the WebApp locally and expose the Endpoints at Port: ``8084``
 
 ## Endpoints
 
