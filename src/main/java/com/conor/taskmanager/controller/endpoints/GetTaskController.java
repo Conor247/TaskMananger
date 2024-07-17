@@ -6,7 +6,6 @@ import com.conor.taskmanager.domain.service.GetTaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -33,6 +32,7 @@ public class GetTaskController {
                 });
     }
 
+    // Endpoint returning a flux (multiple) item
     @GetMapping("/all")
         public Flux<Task> getAllTasks() {
         return getTaskService.getAllTasks()
