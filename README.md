@@ -11,23 +11,39 @@ To run the project you will need to have the following installed
 
 This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
 
-To interact with the Endpoints I recommend using PostMan.
+To interact with the Endpoints PostMan is recommended.
 
-To visualise the MongoDB I recommend using MongoDB Compass although the GET endpoints do return Tasks in JSON format.
+To visualise the MongoDB, MongoDB Compass is recommended. 
+* Although the GET endpoints do return Tasks in JSON format.
 
 ## Running
 
 Open a bash terminal at the project directory and use the following commands to set up your environment.
+```bash
+./gradlew clean build
+````
+* Ensures a clean build of the Task Manager Web App is done.
+
+```bash
+docker-compose up --build
+```
+* This will create the docker images, volumes and containers for
+* * Task Manager WebApp and expose the Endpoints at Port: ``8084``
+* * MongoDB docker container and expose it at Port: ``27017``
 
 ```bash
 docker-compose up -d
 ```
-* This will create the mongoDB docker container which is exposed at Port: ``27017``
+* This will start the existing docker images associated with Task Manager and MongoDB
 
+```bash
+docker-compose down
+```
+* Used to stop and remove Docker containers, networks, volumes, and images created by the docker-compose script.
 ```bash
 ./gradlew bootRun
 ```
-* This will run the WebApp locally and expose the Endpoints at Port: ``8084``
+* Unnecessary but will run the WebApp locally and expose the Endpoints at Port: ``8084``
 
 ## Endpoints
 

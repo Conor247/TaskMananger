@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 public class MongoAppConfig {
     @Bean
     public ReactiveMongoTemplate reactiveMongoTemplate() {
-        return new ReactiveMongoTemplate(MongoClients.create("mongodb://admin:admin@localhost:27017"), "tasks-db");
+        return new ReactiveMongoTemplate(MongoClients.create("mongodb://admin:admin@mongodb:27017"), "database");
     }
 }

@@ -10,7 +10,22 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - taskmanager-network
+  taskmanager:
+    image: taskmanager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    networks:
+      - taskmanager-network
 
 volumes:
   mongodb_data:
     driver: local
+
+networks:
+  taskmanager-network:
+    driver: bridge
