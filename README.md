@@ -176,4 +176,9 @@ DELETE delete/task/{id}
 ``
 * Used to delete a Task by id.
 
+``
+DELETE delete/task/{id}/subtask/{id}
+``
+* Used to delete a SubTask by id.
+
 
