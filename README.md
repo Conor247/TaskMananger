@@ -180,5 +180,7 @@ DELETE delete/task/{id}
 DELETE delete/task/{id}/subtask/{id}
 ``
 * Used to delete a SubTask by id.
+* The subtasks are given a formatted id when a Task is created or updated.
+* * This is done using the assignIdsToSubTasks() function in the TaskService class.
 
 
