@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY build/libs/taskmanager-0.0.1-SNAPSHOT.jar /app/taskmanager-0.0.1-SNAPSHOT.jar
 
+ENV SPRING_DATA_MONGODB=mongodb://admin:admin@mongodb:27017
+
 EXPOSE 8084
 
 # Run the JAR file

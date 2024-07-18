@@ -30,25 +30,48 @@ public class DeleteTaskService {
                 .then();
     }
 
-    public Mono<Void> deleteSubTaskById(String taskId, String subTaskId) {
+    public Mono<Task> deleteSubtaskById(String taskId, String subtaskId) {
+        //Retrieve the task by its ID
         return taskRepository.findById(taskId, Task.class)
                 .flatMap(task -> {
-                    deleteSubTaskRecursive(task.getSubTasks(), subTaskId);
+                    //Look at the subtasks and attempt to find the subtask with matching id
+                    removeSubtaskById(task, subtaskId);
+                    //Save the updated task document
                     return taskRepository.save(task);
-                })
-                .then();
+                });
     }
 
-    //need to think about this more as it doesn't seem to work with subtasks with multiple tasks
-    private void deleteSubTaskRecursive(Collection<Task> subTasks, String subTaskId) {
+    private void removeSubtaskById(Task task, String subtaskId) {
+        removeSubtaskFromList(task.getSubTasks(), subtaskId);
+    }
+
+    private boolean removeSubtaskFromList(Collection<Task> subTasks, String subtaskId) {
+        if (subTasks == null) return false;
+
+        boolean removed = false;
         Iterator<Task> iterator = subTasks.iterator();
+
         while (iterator.hasNext()) {
-            Task subTask = iterator.next();
-            if (subTask.getId().equals(subTaskId)) {
-                iterator.remove();
+            Task subtask = iterator.next();
+            if (subtask.getId().equals(subtaskId)) {
+                iterator.remove(); // Remove the subtask if it matches the subtaskId
+                removed = true;
             } else {
-                deleteSubTaskRecursive(subTask.getSubTasks(), subTaskId); // Recursively check nested subtasks
+                // Otherwise, iterate through nested subtasks and remove if found
+                if (subtask.getSubTasks() != null) {
+                    //recursively call removeSubtaskFromList() again to go another level deeper
+                    boolean nestedRemoved = removeSubtaskFromList(subtask.getSubTasks(), subtaskId);
+                    if (nestedRemoved) {
+                        // Clean up empty subTasks collections as they were just being emptied
+                        if (subtask.getSubTasks().isEmpty()) {
+                            subtask.setSubTasks(null);
+                        }
+                        removed = true;
+                    }
+                }
             }
         }
+        return removed;
+        //could probably do this in a way that it doesn't return useless boolean...
     }
 }

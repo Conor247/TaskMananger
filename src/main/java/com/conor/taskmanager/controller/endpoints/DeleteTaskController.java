@@ -18,10 +18,10 @@ public class DeleteTaskController {
         return deleteTaskService.deleteTaskById(id);
     }
 
-    /*
+
     @DeleteMapping(path = "/{id}/subtask/{subtaskId}")
     public Mono<Void> deleteSubTasks(@PathVariable String id, @PathVariable String subtaskId) {
-        return deleteTaskService.deleteSubTaskById(id, subtaskId);
+        return deleteTaskService.deleteSubtaskById(id, subtaskId).then();
     }
-    */
+
 }

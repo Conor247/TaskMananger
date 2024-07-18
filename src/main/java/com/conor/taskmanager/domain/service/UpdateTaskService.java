@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
 @Service
 public class UpdateTaskService {
     private final ReactiveMongoTemplate taskRepository;
-
     private final TaskService taskService;
 
     @Autowired
