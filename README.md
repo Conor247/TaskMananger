@@ -16,6 +16,16 @@ To interact with the Endpoints PostMan is recommended.
 To visualise the MongoDB, MongoDB Compass is recommended. 
 * Although the GET endpoints do return Tasks in JSON format.
 
+### Enironment Variables
+
+This is required when building and running in the local environment.
+
+Name ``SPRING_DATA_MONGODB``
+
+Value ``mongodb://admin:admin@localhost:27017``
+
+The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
+
 ## Running
 
 Open a bash terminal at the project directory and use the following commands to set up your environment.
