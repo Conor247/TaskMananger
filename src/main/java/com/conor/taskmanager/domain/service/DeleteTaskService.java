@@ -3,7 +3,6 @@ package com.conor.taskmanager.domain.service;
 import com.conor.taskmanager.domain.model.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,12 +13,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 @Service
-public class DeleteTaskService {
-    private final ReactiveMongoTemplate taskRepository;
+public class DeleteTaskService extends AbstractTaskService {
 
-    @Autowired
     public DeleteTaskService(ReactiveMongoTemplate taskRepository) {
-        this.taskRepository = taskRepository;
+        super(taskRepository);
     }
 
     public Mono<Void> deleteTaskById(String id) {

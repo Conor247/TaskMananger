@@ -3,19 +3,16 @@ package com.conor.taskmanager.domain.service;
 import com.conor.taskmanager.domain.model.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class GetTaskService {
-    private final ReactiveMongoTemplate taskRepository;
+public class GetTaskService extends AbstractTaskService {
 
-    @Autowired
     public GetTaskService(ReactiveMongoTemplate taskRepository) {
-        this.taskRepository = taskRepository;
+        super(taskRepository);
     }
 
     public Mono<Task> getTaskById(String id) {
