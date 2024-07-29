@@ -45,6 +45,7 @@ docker-compose up --build
 docker-compose up -d
 ```
 * This will start the existing docker images associated with Task Manager and MongoDB
+* It is not required after running the compose up --build command as it will already be running.
 
 ```bash
 docker-compose down
