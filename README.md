@@ -183,12 +183,17 @@ PUT /update/task/{id}
 }
 ```
 ``
+UPDATE update/task/{id}/subtask/{subtaskId}
+``
+* Used to delete a SubTask by id.
+* 
+``
 DELETE delete/task/{id}
 ``
 * Used to delete a Task by id.
 
 ``
-DELETE delete/task/{id}/subtask/{id}
+DELETE delete/task/{id}/subtask/{subtaskId}
 ``
 * Used to delete a SubTask by id.
 * The subtasks are given a formatted id when a Task is created or updated.

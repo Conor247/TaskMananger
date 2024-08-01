@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 @Service
 public class DeleteTaskService extends AbstractTaskService {
@@ -27,48 +27,36 @@ public class DeleteTaskService extends AbstractTaskService {
                 .then();
     }
 
-    public Mono<Task> deleteSubtaskById(String taskId, String subtaskId) {
-        //Retrieve the task by its ID
-        return taskRepository.findById(taskId, Task.class)
+    public Mono<Task> deleteSubtaskById(String id, String subtaskId) {
+        Query query = new Query(Criteria.where("id").is(id));
+
+        return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    //Look at the subtasks and attempt to find the subtask with matching id
-                    removeSubtaskById(task, subtaskId);
-                    //Save the updated task document
-                    return taskRepository.save(task);
+                    if (removeSubtaskById(task, subtaskId)) {
+                        return taskRepository.save(task);
+                    } else {
+                        return Mono.empty();
+                    }
                 });
     }
 
-    private void removeSubtaskById(Task task, String subtaskId) {
-        removeSubtaskFromList(task.getSubTasks(), subtaskId);
-    }
+    private boolean removeSubtaskById(Task task, String subTaskId) {
 
-    private boolean removeSubtaskFromList(Collection<Task> subTasks, String subtaskId) {
-        if (subTasks == null) return false;
+        Queue<Task> queue = new LinkedList<>();
+        queue.add(task);
 
-        boolean removed = false;
-        Iterator<Task> iterator = subTasks.iterator();
-
-        while (iterator.hasNext()) {
-            Task subtask = iterator.next();
-            if (subtask.getId().equals(subtaskId)) {
-                iterator.remove(); // Remove the subtask if it matches the subtaskId
-                removed = true;
-            } else {
-                // Otherwise, iterate through nested subtasks and remove if found
-                if (subtask.getSubTasks() != null) {
-                    //recursively call removeSubtaskFromList() again to go another level deeper
-                    boolean nestedRemoved = removeSubtaskFromList(subtask.getSubTasks(), subtaskId);
-                    if (nestedRemoved) {
-                        // Clean up empty subTasks collections as they were just being emptied
-                        if (subtask.getSubTasks().isEmpty()) {
-                            subtask.setSubTasks(null);
-                        }
-                        removed = true;
+        while (!queue.isEmpty()) {
+            Task currentTask = queue.poll();
+            if (currentTask.getSubTasks() != null) {
+                for (Task subTask : currentTask.getSubTasks()) {
+                    if (subTask.getId().equals(subTaskId)) {
+                        currentTask.getSubTasks().remove(subTask);
+                        return true;
                     }
+                    queue.add(subTask);
                 }
             }
         }
-        return removed;
-        //could probably do this in a way that it doesn't return useless boolean...
+        return false;
     }
 }
