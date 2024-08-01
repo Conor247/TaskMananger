@@ -61,7 +61,7 @@ docker-compose down
 ``
 POST /create/task
 ``
-* Used for creating tasks using a JSON request body payload.
+* Used to create tasks using a JSON request body payload.
 
 ```json
 {
@@ -122,71 +122,40 @@ POST /create/task
 ``
 GET /get/task/{id}
 ``
-* Used for retrieving a mono (single) Task and its Sub Tasks by id.
+* Used to retrieve a mono (single) Task and its Sub Tasks by id.
 
 ``
 GET /get/task/all
 ``
-* Used for retrieving a flux (multiple) of all Tasks and their Sub Tasks.
+* Used to retrieve a flux (multiple) of all Tasks and their Sub Tasks.
 
 ``
 PUT /update/task/{id}
 ``
-* Used for updating a single task by passing its id as a parameter.
+* Used to update a single task by passing its id as a parameter.
 
 * This also requires a JSON request body payload.
 
 ```json
 {
-    "title": "Create Task Manager App",
-    "description": "Create a task manager app in which you use ReactiveMongoTemplate to interact with the database.",
-    "subTasks": [
-        {
-            "title": "Implement the endpoints in a reactive manner.",
-            "description": "Use `mono` and `flux` from Project Reactor.",
-            "subTasks": [
-                {
-                    "title": "Write the Get Controller and Service",
-                    "description": "GET"
-                },
-                {
-                    "title": "Write the POST Controller and Service",
-                    "description": "POST"
-                },
-                {
-                    "title": "Write the DELETE Controller and Service",
-                    "description": "DELETE"
-                },
-                {
-                    "title": "Write the UPDATE Controller and Service",
-                    "description": "PUT"
-                }
-            ]
-        },
-        {
-            "title": "Containerise the Java SpringBoot application.",
-            "description": "This will make everything very easy to setup on another machine.",
-            "subTasks": [
-                {
-                    "title": "Write the necessary docker files",
-                    "description": "This will make everything very easy to setup on another machine.",
-                    "subTasks": [
-                        {
-                            "title": "Commit the docker files to github",
-                            "description": "git commit -m"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+  "title": "Updated Title",
+  "description": "Updated Description"
 }
 ```
+
 ``
 UPDATE update/task/{id}/subtask/{subtaskId}
 ``
-* Used to delete a SubTask by id.
-* 
+* Used to update a SubTask by id.
+* This also requires a JSON request body payload.
+
+```json
+{
+  "title": "Updated Subtask Title",
+  "description": "Updated Subtask Description"
+}
+```
+
 ``
 DELETE delete/task/{id}
 ``
