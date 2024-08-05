@@ -9,9 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 @Service
 public class DeleteTaskService extends AbstractTaskService {
 
@@ -40,23 +37,13 @@ public class DeleteTaskService extends AbstractTaskService {
                 });
     }
 
-    private boolean removeSubtaskById(Task task, String subTaskId) {
+    @Override
+    protected boolean performOperation(Task currentTask, Task subTask, Task updatedTask) {
+        currentTask.getSubTasks().remove(subTask);
+        return true;
+    }
 
-        Queue<Task> queue = new LinkedList<>();
-        queue.add(task);
-
-        while (!queue.isEmpty()) {
-            Task currentTask = queue.poll();
-            if (currentTask.getSubTasks() != null) {
-                for (Task subTask : currentTask.getSubTasks()) {
-                    if (subTask.getId().equals(subTaskId)) {
-                        currentTask.getSubTasks().remove(subTask);
-                        return true;
-                    }
-                    queue.add(subTask);
-                }
-            }
-        }
-        return false;
+    public boolean removeSubtaskById(Task task, String subTaskId) {
+        return findSubTask(task, subTaskId, null);
     }
 }

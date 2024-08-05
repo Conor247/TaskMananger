@@ -21,25 +21,23 @@ public class GetTaskController {
         this.getTaskService = getTaskService;
     }
 
-    // Endpoint returning a mono (single) item
     @GetMapping("/{id}")
     public Mono<Task> getTask(@PathVariable String id) {
         return getTaskService.getTaskById(id)
                 .onErrorResume(e -> {
                     final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
                     log.error("Error retrieving tasks", e);
-                    return Mono.empty(); // Return an empty Flux in case of error
+                    return Mono.empty();
                 });
     }
 
-    // Endpoint returning a flux (multiple) item
     @GetMapping("/all")
         public Flux<Task> getAllTasks() {
         return getTaskService.getAllTasks()
                 .onErrorResume(e -> {
                     final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
                     log.error("Error retrieving tasks", e);
-                    return Flux.empty(); // Return an empty Flux in case of error
+                    return Flux.empty();
                 });
     }
 }

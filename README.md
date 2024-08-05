@@ -117,7 +117,31 @@ POST /create/task
     ]
 }
 ```
-* This Endpoint will return an ObjectId generated during the creation of any document in MongoDB which can be used in the following endpoints.
+* This Endpoint will return an ObjectId generated during the creation of any document in MongoDB which can be used in the subsequent endpoints.
+
+``
+POST /create/subtask/{id}
+``
+* Used to create subtasks using a JSON request body payload.
+
+```json
+{
+  "title": "New SubTask Title",
+  "description": "New SubTask Description"
+}
+```
+
+``
+POST /create/task/{id}/subtask/{subtaskId}
+``
+* Used to create nested subtasks using a JSON request body payload.
+
+```json
+{
+  "title": "New Nested SubTask Title",
+  "description": "New Nested SubTask Description"
+}
+```
 
 ``
 GET /get/task/{id}
@@ -144,7 +168,7 @@ PUT /update/task/{id}
 ```
 
 ``
-UPDATE update/task/{id}/subtask/{subtaskId}
+PUT /update/task/{id}/subtask/{subtaskId}
 ``
 * Used to update a SubTask by id.
 * This also requires a JSON request body payload.
@@ -157,12 +181,12 @@ UPDATE update/task/{id}/subtask/{subtaskId}
 ```
 
 ``
-DELETE delete/task/{id}
+DELETE /delete/task/{id}
 ``
 * Used to delete a Task by id.
 
 ``
-DELETE delete/task/{id}/subtask/{subtaskId}
+DELETE /delete/task/{id}/subtask/{subtaskId}
 ``
 * Used to delete a SubTask by id.
 * The subtasks are given a formatted id when a Task is created or updated.
