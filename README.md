@@ -120,7 +120,7 @@ POST /create/task
 * This Endpoint will return an ObjectId generated during the creation of any document in MongoDB which can be used in the subsequent endpoints.
 
 ``
-POST /create/subtask/{id}
+POST /create/task/{id}/subtask
 ``
 * Used to create subtasks using a JSON request body payload.
 
