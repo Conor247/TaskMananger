@@ -118,7 +118,7 @@ POST /create/task
 ``
 POST /create/task/{id}/subtask
 ``
-* Create subtasks using a JSON request body payload.
+* Create subtasks using a JSON request body payload and task id.
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /create/task/{id}/subtask
 ``
 POST /create/task/{id}/subtask/{subtaskId}
 ``
-* Create nested subtasks using a JSON request body payload.
+* Create nested subtasks using a JSON request body payload, task id and subtask id.
 
 ```json
 {
@@ -152,9 +152,7 @@ GET /get/task/all
 ``
 PUT /update/task/{id}
 ``
-* Update a single task by passing its id as a parameter.
-
-* This also requires a JSON request body payload.
+* Update a single task using a JSON request body payload and task id.
 
 ```json
 {
@@ -166,8 +164,7 @@ PUT /update/task/{id}
 ``
 PUT /update/task/{id}/subtask/{subtaskId}
 ``
-* Update a SubTask by id.
-* This also requires a JSON request body payload.
+* Update a SubTask using a JSON request body payload, task id and subtask id.
 
 ```json
 {
