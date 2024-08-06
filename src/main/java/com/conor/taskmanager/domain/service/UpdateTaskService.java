@@ -37,8 +37,7 @@ public class UpdateTaskService extends AbstractTaskService {
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    boolean updated = findSubTaskPerformOperation(task, subtaskId, updatedTask);
-                    if (updated) {
+                    if (findSubTaskPerformOperation(task, subtaskId, updatedTask)) {
                         return taskRepository.save(task);
                     } else {
                         return Mono.empty();

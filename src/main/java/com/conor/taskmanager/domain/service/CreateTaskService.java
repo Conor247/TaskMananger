@@ -44,8 +44,7 @@ public class CreateTaskService extends AbstractTaskService {
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    boolean created = findSubTaskPerformOperation(task, subTaskId, subtaskRequest);
-                    if (created) {
+                    if (findSubTaskPerformOperation(task, subTaskId, subtaskRequest)) {
                         assignIdsToSubTasks(task.getSubTasks());
                         return taskRepository.save(task);
                     } else {
