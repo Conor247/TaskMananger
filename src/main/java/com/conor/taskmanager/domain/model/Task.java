@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Collection;
 
+@Builder
 @Data
 @Document
 @NoArgsConstructor

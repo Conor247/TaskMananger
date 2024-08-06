@@ -1,0 +1,70 @@
+{
+  "title": "Create Task Manager App",
+  "description": "Create a task manager app in which you use ReactiveMongoTemplate to interact with the database.",
+  "subTasks": [
+    {
+      "title": "Implement the endpoints in a reactive manner.",
+      "description": "Use `mono` and `flux` from Project Reactor.",
+      "subTasks": [
+        {
+          "title": "Write the Get Controller and Service",
+          "description": "GET"
+        },
+        {
+          "title": "Write the POST Controller and Service",
+          "description": "POST"
+        },
+        {
+          "title": "Write the DELETE Controller and Service",
+          "description": "DELETE"
+        },
+        {
+          "title": "Write the UPDATE Controller and Service",
+          "description": "PUT"
+        }
+      ]
+    },
+    {
+      "title": "Containerise the Java SpringBoot application.",
+      "description": "This will make everything very easy to setup on another machine.",
+      "subTasks": [
+        {
+          "title": "Write the necessary docker files",
+          "description": "This will make everything very easy to setup on another machine.",
+          "subTasks": [
+            {
+              "title": "Write the Dockerfile",
+              "description": "This will make everything very easy to setup on another machine."
+            },
+            {
+              "title": "Write the dockerignore file",
+              "description": "This will make everything very easy to setup on another machine."
+            },
+            {
+              "title": "Write the docker.compose file",
+              "description": "This will make everything very easy to setup on another machine.",
+              "subTasks": [
+                {
+                  "title": "Deeply Nested Subtask",
+                  "description": "This is Deep",
+                  "subTasks": [
+                    {
+                      "title": "Even Deeper Subtask",
+                      "description": "Wow This is Deep",
+                      "subTasks": [
+                        {
+                          "title": "Even Deeper Subtask",
+                          "description": "Wow This is Very Deep"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
