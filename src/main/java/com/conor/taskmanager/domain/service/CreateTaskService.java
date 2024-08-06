@@ -44,7 +44,7 @@ public class CreateTaskService extends AbstractTaskService {
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    boolean created = createNestedSubTask(task, subTaskId, subtaskRequest);
+                    boolean created = findSubTaskPerformOperation(task, subTaskId, subtaskRequest);
                     if (created) {
                         assignIdsToSubTasks(task.getSubTasks());
                         return taskRepository.save(task);
@@ -62,9 +62,5 @@ public class CreateTaskService extends AbstractTaskService {
             currentSubTask.setSubTasks(new ArrayList<>(Collections.singletonList(task)));
         }
         return true;
-    }
-
-    public boolean createNestedSubTask(Task task, String subTaskId, Task updatedTask) {
-        return findSubTask(task, subTaskId, updatedTask);
     }
 }

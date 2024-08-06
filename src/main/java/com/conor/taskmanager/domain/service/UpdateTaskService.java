@@ -37,7 +37,7 @@ public class UpdateTaskService extends AbstractTaskService {
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    boolean updated = updateNestedSubTask(task, subtaskId, updatedTask);
+                    boolean updated = findSubTaskPerformOperation(task, subtaskId, updatedTask);
                     if (updated) {
                         return taskRepository.save(task);
                     } else {
@@ -51,9 +51,5 @@ public class UpdateTaskService extends AbstractTaskService {
         subTask.setTitle(updatedTask.getTitle());
         subTask.setDescription(updatedTask.getDescription());
         return true;
-    }
-
-    public boolean updateNestedSubTask(Task task, String subTaskId, Task updatedTask) {
-        return findSubTask(task, subTaskId, updatedTask);
     }
 }

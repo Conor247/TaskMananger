@@ -41,7 +41,7 @@ public abstract class AbstractTaskService {
     }
 
     //Using a queue to perform a breadth first search on the subtask tree
-    protected boolean findSubTask(Task task, String subTaskId, Task requestedTask) {
+    protected boolean findSubTaskPerformOperation(Task task, String subTaskId, Task requestedTask) {
         Queue<Task> queue = new LinkedList<>(Collections.singletonList(task));
 
         while (!queue.isEmpty()) {

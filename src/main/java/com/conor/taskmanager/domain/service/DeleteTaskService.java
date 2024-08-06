@@ -29,7 +29,7 @@ public class DeleteTaskService extends AbstractTaskService {
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
-                    if (removeSubtaskById(task, subtaskId)) {
+                    if (findSubTaskPerformOperation(task, subtaskId, null)) {
                         return taskRepository.save(task);
                     } else {
                         return Mono.empty();
@@ -41,9 +41,5 @@ public class DeleteTaskService extends AbstractTaskService {
     protected boolean performOperation(Task currentTask, Task subTask, Task updatedTask) {
         currentTask.getSubTasks().remove(subTask);
         return true;
-    }
-
-    public boolean removeSubtaskById(Task task, String subTaskId) {
-        return findSubTask(task, subTaskId, null);
     }
 }
