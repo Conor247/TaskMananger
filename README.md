@@ -11,11 +11,6 @@ To run the project you will need to have the following installed
 
 This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
 
-To interact with the Endpoints PostMan is recommended.
-
-To visualise the MongoDB, MongoDB Compass is recommended. 
-* Although the GET endpoints do return Tasks in JSON format.
-
 ### Enironment Variables
 
 This is required when building and running in the local environment.
@@ -61,7 +56,8 @@ docker-compose down
 ``
 POST /create/task
 ``
-* Used to create tasks using a JSON request body payload.
+* Create tasks using a JSON request body payload.
+* * The subtasks are given a formatted id when a Task is created or updated.
 
 ```json
 {
@@ -122,7 +118,7 @@ POST /create/task
 ``
 POST /create/task/{id}/subtask
 ``
-* Used to create subtasks using a JSON request body payload.
+* Create subtasks using a JSON request body payload.
 
 ```json
 {
@@ -134,7 +130,7 @@ POST /create/task/{id}/subtask
 ``
 POST /create/task/{id}/subtask/{subtaskId}
 ``
-* Used to create nested subtasks using a JSON request body payload.
+* Create nested subtasks using a JSON request body payload.
 
 ```json
 {
@@ -146,17 +142,17 @@ POST /create/task/{id}/subtask/{subtaskId}
 ``
 GET /get/task/{id}
 ``
-* Used to retrieve a mono (single) Task and its Sub Tasks by id.
+* Retrieve a mono (single) Task and its Sub Tasks by id.
 
 ``
 GET /get/task/all
 ``
-* Used to retrieve a flux (multiple) of all Tasks and their Sub Tasks.
+* Retrieve a flux (multiple) of all Tasks and their Sub Tasks.
 
 ``
 PUT /update/task/{id}
 ``
-* Used to update a single task by passing its id as a parameter.
+* Update a single task by passing its id as a parameter.
 
 * This also requires a JSON request body payload.
 
@@ -170,7 +166,7 @@ PUT /update/task/{id}
 ``
 PUT /update/task/{id}/subtask/{subtaskId}
 ``
-* Used to update a SubTask by id.
+* Update a SubTask by id.
 * This also requires a JSON request body payload.
 
 ```json
@@ -183,13 +179,11 @@ PUT /update/task/{id}/subtask/{subtaskId}
 ``
 DELETE /delete/task/{id}
 ``
-* Used to delete a Task by id.
+* Delete a Task by id.
 
 ``
 DELETE /delete/task/{id}/subtask/{subtaskId}
 ``
-* Used to delete a SubTask by id.
-* The subtasks are given a formatted id when a Task is created or updated.
-* * This is done using the assignIdsToSubTasks() function in the TaskService class.
+* Delete a SubTask by id.
 
 
