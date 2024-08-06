@@ -57,7 +57,7 @@ docker-compose down
 POST /create/task
 ``
 * Create tasks using a JSON request body payload.
-* * The subtasks are given a formatted id when a Task is created or updated.
+* * The subtasks are given a formatted id when a Task is created.
 
 ```json
 {

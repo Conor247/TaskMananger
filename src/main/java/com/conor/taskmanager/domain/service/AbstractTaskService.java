@@ -4,11 +4,8 @@ import com.conor.taskmanager.domain.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 @Service
 public abstract class AbstractTaskService {
@@ -20,25 +17,32 @@ public abstract class AbstractTaskService {
         this.taskRepository = taskRepository;
     }
 
-    //TODO re write this so it doesn't use recursion
-    //TODO it currently re does the entire subtask id's, is this desired so sub tasks always start at 1?
-    protected void assignIdsToSubTasks(Collection<Task> subTasks, String parentId) {
-        if (!CollectionUtils.isEmpty(subTasks)) {
-            int index = 1;
-            for (Task subTask : subTasks) {
-                String newId = (parentId == null || parentId.isEmpty()) ? String.valueOf(index) : parentId + "." + index;
-                subTask.setId(newId);
-                assignIdsToSubTasks(subTask.getSubTasks(), newId);
-                index++;
+    protected void assignIdsToSubTasks(Collection<Task> subTasks) {
+        Queue<Task> queue = new LinkedList<>(subTasks);
+        int index = 1;
+
+        while (!queue.isEmpty()) {
+            Task currentTask = queue.poll();
+
+            if (currentTask.getId() == null || currentTask.getId().isEmpty()) {
+                currentTask.setId(String.valueOf(index));
+            }
+            index++;
+
+            if (currentTask.getSubTasks() != null) {
+                int subIndex = 1;
+                for (Task subTask : currentTask.getSubTasks()) {
+                    subTask.setId(currentTask.getId() + "." + subIndex);
+                    queue.add(subTask);
+                    subIndex++;
+                }
             }
         }
     }
 
-    //Using a queue to perform a breadth first search on the subtask tree.
-    //This is used to avoid recursion which can lead to problems and is considered not safe in many scenarios.
+    //Using a queue to perform a breadth first search on the subtask tree
     protected boolean findSubTask(Task task, String subTaskId, Task requestedTask) {
-        Queue<Task> queue = new LinkedList<>();
-        queue.add(task);
+        Queue<Task> queue = new LinkedList<>(Collections.singletonList(task));
 
         while (!queue.isEmpty()) {
             Task currentTask = queue.poll();
@@ -54,6 +58,7 @@ public abstract class AbstractTaskService {
         return false;
     }
 
+    //This method should be overridden to define the operation to perform when the subtask is found.
     protected boolean performOperation(Task currentTask, Task subTask, Task requestedTask) {
         return false;
     }

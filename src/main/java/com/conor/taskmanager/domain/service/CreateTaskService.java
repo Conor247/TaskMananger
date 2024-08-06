@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class CreateTaskService extends AbstractTaskService {
@@ -22,7 +21,7 @@ public class CreateTaskService extends AbstractTaskService {
 
     public Mono<Task> createTask(Task taskRequest) {
         final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
-        assignIdsToSubTasks(taskRequest.getSubTasks(), "");
+        assignIdsToSubTasks(taskRequest.getSubTasks());
         return taskRepository.insert(taskRequest)
                 .doOnNext(task -> log.info("Insert: " + task));
     }
@@ -34,7 +33,7 @@ public class CreateTaskService extends AbstractTaskService {
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
                     task.getSubTasks().add(taskRequest);
-                    assignIdsToSubTasks(task.getSubTasks(), "");
+                    assignIdsToSubTasks(task.getSubTasks());
                     return taskRepository.save(task);
                 });
     }
@@ -47,7 +46,7 @@ public class CreateTaskService extends AbstractTaskService {
                 .flatMap(task -> {
                     boolean created = createNestedSubTask(task, subTaskId, subtaskRequest);
                     if (created) {
-                        assignIdsToSubTasks(task.getSubTasks(), "");
+                        assignIdsToSubTasks(task.getSubTasks());
                         return taskRepository.save(task);
                     } else {
                         return Mono.empty();
