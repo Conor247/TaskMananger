@@ -9,19 +9,29 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
+@WebFluxTest(CreateTaskController.class)
 class CreateTaskControllerTest {
 
-    @Mock
-    private CreateTaskService createTaskServiceMock = mock(CreateTaskService.class);
+    @Autowired
+    private WebTestClient webTestClient;
 
-    @InjectMocks
-    private CreateTaskController sut;
+    @MockBean
+    private CreateTaskService createTaskServiceMock;
 
     @BeforeEach
     public void setUp() {
@@ -29,16 +39,28 @@ class CreateTaskControllerTest {
     }
 
     @Test
-    void createTask() throws IOException {
-        Task task = TestDataBuilder.buildTaskFromJson();
-        assert task.getTitle().equals("Create Task Manager App");
+    void createTaskTest() throws IOException {
+
+        Task task = TestDataBuilder.buildTask();
+        task.setId("ABC123");
+
+        when(createTaskServiceMock.createTask(any(Task.class))).thenReturn(Mono.just(task));
+
+        webTestClient.post()
+                .uri("/create/task")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(task)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .isEqualTo("Task created with id: ABC123");
     }
 
     @Test
-    void createSubTask() {
+    void createSubTaskTest() {
     }
 
     @Test
-    void createNestedSubTask() {
+    void createNestedSubTaskTest() {
     }
 }

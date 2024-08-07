@@ -18,13 +18,13 @@ public class TestDataBuilder {
 
     public static Task buildTaskWithSubTask() {
         Task subTask = Task.builder()
-                .title("Task Title")
-                .description("Task Description")
+                .title("SubTask Title")
+                .description("SubTask Description")
                 .build();
 
         return Task.builder()
-                .title("SubTask Title")
-                .description("SubTask Description")
+                .title("Task Title")
+                .description("Task Description")
                 .subTasks(Collections.singletonList(subTask))
                 .build();
     }
@@ -36,14 +36,14 @@ public class TestDataBuilder {
                 .build();
 
         Task subTask = Task.builder()
-                .title("Task Title")
-                .description("Task Description")
+                .title("SubTask Title")
+                .description("SubTask Description")
                 .subTasks(Collections.singletonList(nestedSubTask))
                 .build();
 
         return Task.builder()
-                .title("Subtask Title")
-                .description("Subtask Description")
+                .title("Task Title")
+                .description("Task Description")
                 .subTasks(Collections.singletonList(subTask))
                 .build();
     }
