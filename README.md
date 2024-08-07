@@ -20,6 +20,25 @@ Name ``SPRING_DATA_MONGODB``
 Value ``mongodb://admin:admin@localhost:27017``
 
 The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
+## Testing
+
+Open a bash terminal at the project directory and use the following commands to run tests and generate reports.
+* Test reports can be found in build>>reports, open the respective index.html files in a browser to view it.
+```bash
+./gradlew test
+````
+* Run all JUnit tests.
+
+```bash
+./gradlew jacocoTestReport
+````
+* Generates Jacoco test report on the line coverage.
+
+```bash
+./gradlew pitest
+````
+* Generates pitest report on the line coverage and mutation coverage.
+
 
 ## Running
 
