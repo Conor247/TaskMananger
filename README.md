@@ -23,7 +23,7 @@ The docker scripts will set the environment variable value to suit the dockerise
 ## Testing
 
 Open a bash terminal at the project directory and use the following commands to run tests and generate reports.
-* Test reports can be found in build>>reports, open the respective index.html files in a browser to view it.
+* Test reports can be found in build>>reports, open the respective index.html files in a browser to view them.
 ```bash
 ./gradlew test
 ````
