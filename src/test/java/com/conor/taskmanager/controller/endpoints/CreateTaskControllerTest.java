@@ -18,8 +18,10 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,10 +41,9 @@ class CreateTaskControllerTest {
     }
 
     @Test
-    void createTaskTest() throws IOException {
+    void createTaskTest() {
 
         Task task = TestDataBuilder.buildTask();
-        task.setId("ABC123");
 
         when(createTaskServiceMock.createTask(any(Task.class))).thenReturn(Mono.just(task));
 
@@ -58,9 +59,34 @@ class CreateTaskControllerTest {
 
     @Test
     void createSubTaskTest() {
+        Task task = TestDataBuilder.buildTaskWithSubTask();
+
+        when(createTaskServiceMock.createSubTaskById(any(Task.class), eq("ABC123"))).thenReturn(Mono.just(task));
+
+        webTestClient.post()
+                .uri("/create/task/ABC123/subtask")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(task)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .isEqualTo("SubTask created under Task with id: ABC123");
     }
 
     @Test
     void createNestedSubTaskTest() {
+        Task task = TestDataBuilder.buildTaskWithSubTaskAndNestedSubTask();
+
+        when(createTaskServiceMock.createNestedSubTaskById(any(Task.class), eq("ABC123"), eq("1.1")))
+                .thenReturn(Mono.just(task));
+
+        webTestClient.post()
+                .uri("/create/task/ABC123/subtask/1.1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(task)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .isEqualTo("Nested SubTask created under Task with id: ABC123 and SubTask id: 1.1");
     }
 }

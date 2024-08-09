@@ -11,41 +11,26 @@ public class TestDataBuilder {
 
     public static Task buildTask() {
         return Task.builder()
+                .id("ABC123")
                 .title("Task Title")
                 .description("Task Description")
                 .build();
     }
 
     public static Task buildTaskWithSubTask() {
-        Task subTask = Task.builder()
+        return buildTask().addSubTask(Task.builder()
+                .id("1")
                 .title("SubTask Title")
                 .description("SubTask Description")
-                .build();
-
-        return Task.builder()
-                .title("Task Title")
-                .description("Task Description")
-                .subTasks(Collections.singletonList(subTask))
-                .build();
+                .build());
     }
 
     public static Task buildTaskWithSubTaskAndNestedSubTask() {
-        Task nestedSubTask = Task.builder()
+        return buildTaskWithSubTask().addSubTask(Task.builder()
+                .id("1.1")
                 .title("Nested SubTask Title")
                 .description("Nested SubTask Description")
-                .build();
-
-        Task subTask = Task.builder()
-                .title("SubTask Title")
-                .description("SubTask Description")
-                .subTasks(Collections.singletonList(nestedSubTask))
-                .build();
-
-        return Task.builder()
-                .title("Task Title")
-                .description("Task Description")
-                .subTasks(Collections.singletonList(subTask))
-                .build();
+                .build());
     }
 
     public static Task buildTaskFromJson() throws IOException {

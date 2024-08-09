@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Builder
@@ -23,5 +24,13 @@ public class Task {
     private String description;
 
     private Collection<Task> subTasks;
+
+    public Task addSubTask(Task subTask) {
+        if (this.subTasks == null) {
+            this.subTasks = new ArrayList<>();
+        }
+        this.subTasks.add(subTask);
+        return this;
+    }
 
 }
