@@ -82,8 +82,8 @@ docker-compose down
 |:-------------|:--------------:|
 | Request Type |      POST      |
 | Request URL  | `/create/task` |
-| Payload      |      JSON      |
 | Header       |                |
+| Body Type    |      JSON      |
 
 ```json
 {
@@ -147,8 +147,8 @@ docker-compose down
 |:-------------|:-----------------:|
 | Request Type |       POST        |
 | Request URL  | `/create/subtask` |
-| Payload      |       JSON        |
 | Header       |       `id`        |
+| Body Type    |       JSON        |
 
 ```json
 {
@@ -164,9 +164,10 @@ docker-compose down
 |:-------------|:------------------------:|
 | Request Type |           POST           |
 | Request URL  | `/create/nested-subtask` |
-| Payload      |           JSON           |
 | Header       |           `id`           |
 | Header       |       `subtaskId`        |
+| Body Type    |           JSON           |
+
 
 ```json
 {
@@ -182,8 +183,9 @@ docker-compose down
 |:-------------|:-----------:|
 | Request Type |     GET     |
 | Request URL  | `/get/task` |
-| Payload      |             |
 | Header       |    `id`     |
+| Body Type    |             |
+
 
 ## `Get All Tasks`
 * Retrieve all Tasks in the database.
@@ -192,18 +194,20 @@ docker-compose down
 |:-------------|:----------------:|
 | Request Type |       GET        |
 | Request URL  | `/get/all-tasks` |
-| Payload      |                  |
 | Header       |                  |
+| Body Type    |                  |
+
 
 ## ``Update Task``
-* Update a Task's information.
+ Update a Task's information.
 
-  | Key          |  Information   |
-  |:-------------|:--------------:|
-  | Request Type |      PUT       |
-  | Request URL  | `/update/task` |
-  | Payload      |      JSON      |
-  | Header       |      `id`      |
+| Key          |  Information   |
+|:-------------|:--------------:|
+| Request Type |      PUT       |
+| Request URL  | `/update/task` |
+| Header       |      `id`      |
+| Body Type    |      JSON      |
+
 
 ```json
 {
@@ -219,9 +223,9 @@ docker-compose down
 |:-------------|:-----------------:|
 | Request Type |        PUT        |
 | Request URL  | `/update/subtask` |
-| Payload      |       JSON        |
 | Header       |       `id`        |
 | Header       |    `subtaskId`    |
+| Body Type    |       JSON        |
 
 ```json
 {
@@ -237,8 +241,9 @@ docker-compose down
 |:-------------|:--------------:|
 | Request Type |     DELETE     |
 | Request URL  | `/delete/task` |
-| Payload      |                |
 | Header       |      `id`      |
+| Body Type    |                |
+
 
 ## `Delete Subtask`
 * Delete a Subtask or nested Subtask from the database.
@@ -247,8 +252,6 @@ docker-compose down
 |:-------------|:-----------------:|
 | Request Type |      DELETE       |
 | Request URL  | `/delete/subtask` |
-| Payload      |                   |
 | Header       |       `id`        |
 | Header       |    `subtaskId`    |
-
-
+| Body Type    |                   |
