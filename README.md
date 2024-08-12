@@ -13,11 +13,11 @@ This project uses gradle as a build tool. It contains the gradlew wrapper script
 
 ### Environment Variables
 
-This is required when building and running in the local environment.
+* This is required when building and running in the local environment.
 
-Name: ``SPRING_DATA_MONGODB``
-
-Value: ``mongodb://admin:admin@localhost:27017``
+|        Variable        |                  Value                  |
+|:----------------------:|:---------------------------------------:|
+| `SPRING_DATA_MONGODB`  | `mongodb://admin:admin@localhost:27017` |
 
 The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
 
