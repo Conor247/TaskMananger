@@ -2,6 +2,8 @@
 
 This is a Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
+---
+
 ## Prerequisites
 
 To run the project you will need to have the following installed
@@ -11,16 +13,19 @@ To run the project you will need to have the following installed
 
 This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
 
-### Enironment Variables
+### Environment Variables
 
 This is required when building and running in the local environment.
 
-Name ``SPRING_DATA_MONGODB``
+Name: ``SPRING_DATA_MONGODB``
 
-Value ``mongodb://admin:admin@localhost:27017``
+Value: ``mongodb://admin:admin@localhost:27017``
 
 The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
-## Testing
+
+---
+
+# Testing
 
 Open a bash terminal at the project directory and use the following commands to run tests and generate reports.
 * Test reports can be found in build>>reports, open the respective index.html files in a browser to view them.
@@ -38,9 +43,9 @@ Open a bash terminal at the project directory and use the following commands to 
 ./gradlew pitest
 ````
 * Generates pitest report on the line coverage and mutation coverage.
+---
 
-
-## Running
+# Running
 
 Open a bash terminal at the project directory and use the following commands to set up your environment.
 ```bash
@@ -70,13 +75,23 @@ docker-compose down
 ```
 * Unnecessary but will run the WebApp locally and expose the Endpoints at Port: ``8084``
 
-## Endpoints
 
-``
-POST /create/task
-``
-* Create tasks and subtasks at once using a JSON request body payload.
-* * The subtasks are given a formatted id when a Task is created.
+# Endpoints
+
+---
+
+## `Create Task`
+
+* Persist a Task along with Subtasks if desired in one request into the database.
+* Subtasks are given a formatted id when a Task is created.
+* Returns the generated Task ObjectId
+
+| Key          |  Information   |
+|:-------------|:--------------:|
+| Request Type |      POST      |
+| Request URL  | `/create/task` |
+| Payload      |      JSON      |
+| Header       |                |
 
 ```json
 {
@@ -132,12 +147,17 @@ POST /create/task
     ]
 }
 ```
-* This Endpoint will return an ObjectId generated during the creation of any document in MongoDB which can be used in the subsequent endpoints.
+---
 
-``
-POST /create/task/{id}/subtask
-``
-* Create subtasks using a JSON request body payload and task id.
+## `Create Subtask`
+* Persist a Subtask under a particular Task into the database.
+
+| Key          |    Information    |
+|:-------------|:-----------------:|
+| Request Type |       POST        |
+| Request URL  | `/create/subtask` |
+| Payload      |       JSON        |
+| Header       |       `id`        |
 
 ```json
 {
@@ -145,33 +165,60 @@ POST /create/task/{id}/subtask
   "description": "New SubTask Description"
 }
 ```
+---
 
-``
-POST /create/task/{id}/subtask/{subtaskId}
-``
-* Create nested subtasks using a JSON request body payload, task id and subtask id.
+##  `Create Nested Subtask`
+* Persist nested Subtasks under a Task and Subtask into the database.
+
+| Key          |       Information        |
+|:-------------|:------------------------:|
+| Request Type |           POST           |
+| Request URL  | `/create/nested-subtask` |
+| Payload      |           JSON           |
+| Header       |           `id`           |
+| Header       |       `subtaskId`        |
 
 ```json
 {
-  "title": "New Nested SubTask Title",
-  "description": "New Nested SubTask Description"
+  "title": "New Nested Subtask Title",
+  "description": "New Nested Subtask Description"
 }
 ```
+---
 
-``
-GET /get/task/{id}
-``
-* Retrieve a mono (single) Task and its Sub Tasks by id.
+## `Get Task`
+* Retrieve a Task from the database.
 
-``
-GET /get/task/all
-``
-* Retrieve a flux (multiple) of all Tasks and their Sub Tasks.
+| Key          | Information |
+|:-------------|:-----------:|
+| Request Type |     GET     |
+| Request URL  | `/get/task` |
+| Payload      |             |
+| Header       |    `id`     |
 
-``
-PUT /update/task/{id}
-``
-* Update a single task using a JSON request body payload and task id.
+---
+
+## `Get All Tasks`
+* Retrieve all Tasks in the database.
+
+| Key          |   Information    |
+|:-------------|:----------------:|
+| Request Type |       GET        |
+| Request URL  | `/get/all-tasks` |
+| Payload      |                  |
+| Header       |                  |
+
+---
+
+## ``Update Task``
+* Update a Task's information.
+
+  | Key          |  Information   |
+  |:-------------|:--------------:|
+  | Request Type |      PUT       |
+  | Request URL  | `/update/task` |
+  | Payload      |      JSON      |
+  | Header       |      `id`      |
 
 ```json
 {
@@ -180,10 +227,18 @@ PUT /update/task/{id}
 }
 ```
 
-``
-PUT /update/task/{id}/subtask/{subtaskId}
-``
-* Update a SubTask using a JSON request body payload, task id and subtask id.
+---
+
+## `Update Subtask`
+* Update a Subtask's or nested Subtask's information.
+
+| Key          |    Information    |
+|:-------------|:-----------------:|
+| Request Type |        PUT        |
+| Request URL  | `/update/subtask` |
+| Payload      |       JSON        |
+| Header       |       `id`        |
+| Header       |    `subtaskId`    |
 
 ```json
 {
@@ -192,14 +247,31 @@ PUT /update/task/{id}/subtask/{subtaskId}
 }
 ```
 
-``
-DELETE /delete/task/{id}
-``
-* Delete a Task by id.
+---
 
-``
-DELETE /delete/task/{id}/subtask/{subtaskId}
-``
-* Delete a SubTask by id.
+## `Delete Task`
+* Delete a Task from the database.
+
+| Key          |  Information   |
+|:-------------|:--------------:|
+| Request Type |     DELETE     |
+| Request URL  | `/delete/task` |
+| Payload      |                |
+| Header       |      `id`      |
+
+---
+
+## `Delete Subtask`
+* Delete a Subtask or nested Subtask from the database.
+
+| Key          |    Information    |
+|:-------------|:-----------------:|
+| Request Type |      DELETE       |
+| Request URL  | `/delete/subtask` |
+| Payload      |                   |
+| Header       |       `id`        |
+| Header       |    `subtaskId`    |
+
+---
 
 
