@@ -1,6 +1,6 @@
 # Task Manager
 
-Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
+Spring Webflux Reactive Web Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
 ## Prerequisites
 
@@ -42,35 +42,34 @@ Open a bash terminal at the project directory and use the following commands to 
 ```bash
 ./gradlew clean build
 ````
-* Ensures a clean build of the Task Manager Web App is done.
+* Ensures a clean build of the Task Manager WebApp.
 
 ```bash
 docker-compose up --build
 ```
 * This will create the docker images, volumes and containers for
-  * Task Manager WebApp and expose the Endpoints at Port: ``8084``
-  * MongoDB and expose it at Port: ``27017``
+  * Task Manager WebApp - Port: ``8084``
+  * MongoDB - Port: ``27017``
 
 ```bash
 docker-compose up -d
 ```
-* This will start the existing docker images associated with Task Manager and MongoDB
-* It is not required after running the compose up --build command as it will already be running.
+* Start the existing docker images associated with Task Manager and MongoDB
 
 ```bash
 docker-compose down
 ```
-* Used to stop and remove Docker containers, networks, volumes, and images created by the docker-compose script.
+* Stop and remove Docker containers, networks, volumes, and images created by the docker-compose script.
 ```bash
 ./gradlew bootRun
 ```
-* Unnecessary but will run the WebApp locally and expose the Endpoints at Port: ``8084``
+* Run the WebApp locally and expose the Endpoints at Port: ``8084``
 
 # Endpoints
 
 ## `Create Task`
 
-* With Subtasks if desired, in one request.
+* With Subtasks if desired.
     * Subtasks are given a formatted id.
     * Returns the generated Task ObjectId.
 
