@@ -9,8 +9,6 @@ To run the project you will need to have the following installed
 * Java 17
 * Docker
 
-This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
-
 ### Environment Variables
 
 * This is required when building and running in the local environment.
