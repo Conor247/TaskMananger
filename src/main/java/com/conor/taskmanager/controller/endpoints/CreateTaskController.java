@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/create/task")
+@RequestMapping("/create")
 public class CreateTaskController {
     CreateTaskService createTaskService;
 
@@ -15,24 +15,27 @@ public class CreateTaskController {
         this.createTaskService = createTaskService;
     }
 
-    @PostMapping(consumes = {"application/json"})
+    @PostMapping(path = "/task", consumes = {"application/json"})
     public Mono<ResponseEntity<String>> createTask(@RequestBody Task requestBody) {
         return createTaskService.createTask(requestBody)
                 .map(createdTask -> ResponseEntity.ok(String.format("Task created with id: %s", createdTask.getId())))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(500).body("Error: " + e.getMessage())));
     }
 
-    @PostMapping(path = "/{id}/subtask", consumes = {"application/json"})
-    public Mono<ResponseEntity<String>> createSubTask(@RequestBody Task requestBody, @PathVariable String id) {
+    @PostMapping(path = "/subtask", consumes = {"application/json"})
+    public Mono<ResponseEntity<String>> createSubTask(
+            @RequestBody Task requestBody,
+            @RequestHeader("id") String id) {
         return createTaskService.createSubTaskById(requestBody, id)
                 .map(task -> ResponseEntity.ok(String.format("SubTask created under Task with id: %s", id)))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(500).body("Error: " + e.getMessage())));
     }
 
-    //TODO update these path variables to use headers instead
-    @PostMapping(path = "/{id}/subtask/{subtaskId}", consumes = {"application/json"})
+    @PostMapping(path = "/nested-subtask", consumes = {"application/json"})
     public Mono<ResponseEntity<String>> createNestedSubTask(
-            @RequestBody Task requestBody, @PathVariable String id, @PathVariable String subtaskId) {
+            @RequestBody Task requestBody,
+            @RequestHeader("id") String id,
+            @RequestHeader("subtaskId") String subtaskId) {
         return createTaskService.createNestedSubTaskById(requestBody, id, subtaskId)
                 .map(task -> ResponseEntity.ok(
                                 String.format("Nested SubTask created under Task with id: %s and SubTask id: %s",

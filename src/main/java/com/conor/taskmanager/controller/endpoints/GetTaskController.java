@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/get/task")
+@RequestMapping("/get")
 public class GetTaskController {
 
     private final GetTaskService getTaskService;
@@ -21,8 +21,8 @@ public class GetTaskController {
         this.getTaskService = getTaskService;
     }
 
-    @GetMapping("/{id}")
-    public Mono<Task> getTask(@PathVariable String id) {
+    @GetMapping(path = "/task")
+    public Mono<Task> getTask(@RequestHeader("id") String id) {
         return getTaskService.getTaskById(id)
                 .onErrorResume(e -> {
                     final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
@@ -31,7 +31,7 @@ public class GetTaskController {
                 });
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all-tasks")
         public Flux<Task> getAllTasks() {
         return getTaskService.getAllTasks()
                 .onErrorResume(e -> {

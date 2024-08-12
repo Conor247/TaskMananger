@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/delete/task")
+@RequestMapping("/delete")
 public class DeleteTaskController {
     DeleteTaskService deleteTaskService;
 
@@ -13,14 +13,17 @@ public class DeleteTaskController {
         this.deleteTaskService = deleteTaskService;
     }
 
-    @DeleteMapping(path = "/{id}")
-    public Mono<Void> deleteTask(@PathVariable String id) {
+    @DeleteMapping(path = "/task")
+    public Mono<Void> deleteTask(
+            @RequestHeader("id") String id) {
         return deleteTaskService.deleteTaskById(id);
     }
 
 
-    @DeleteMapping(path = "/{id}/subtask/{subtaskId}")
-    public Mono<Void> deleteSubTasks(@PathVariable String id, @PathVariable String subtaskId) {
+    @DeleteMapping(path = "/subtask")
+    public Mono<Void> deleteSubTasks(
+            @RequestHeader("id") String id,
+            @RequestHeader("subtaskId") String subtaskId) {
         return deleteTaskService.deleteSubtaskById(id, subtaskId).then();
     }
 

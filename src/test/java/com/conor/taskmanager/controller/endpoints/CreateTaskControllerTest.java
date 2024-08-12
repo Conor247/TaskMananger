@@ -6,23 +6,16 @@ import com.conor.taskmanager.helper.TestDataBuilder;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -64,9 +57,10 @@ class CreateTaskControllerTest {
         when(createTaskServiceMock.createSubTaskById(any(Task.class), eq("ABC123"))).thenReturn(Mono.just(task));
 
         webTestClient.post()
-                .uri("/create/task/ABC123/subtask")
+                .uri("/create/subtask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(task)
+                .header("id","ABC123")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
@@ -81,9 +75,11 @@ class CreateTaskControllerTest {
                 .thenReturn(Mono.just(task));
 
         webTestClient.post()
-                .uri("/create/task/ABC123/subtask/1.1")
+                .uri("/create/nested-subtask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(task)
+                .header("id","ABC123")
+                .header("subtaskId", "1.1")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
