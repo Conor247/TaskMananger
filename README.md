@@ -2,8 +2,6 @@
 
 This is a Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
----
-
 ## Prerequisites
 
 To run the project you will need to have the following installed
@@ -23,8 +21,6 @@ Value: ``mongodb://admin:admin@localhost:27017``
 
 The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
 
----
-
 # Testing
 
 Open a bash terminal at the project directory and use the following commands to run tests and generate reports.
@@ -43,7 +39,6 @@ Open a bash terminal at the project directory and use the following commands to 
 ./gradlew pitest
 ````
 * Generates pitest report on the line coverage and mutation coverage.
----
 
 # Running
 
@@ -75,10 +70,7 @@ docker-compose down
 ```
 * Unnecessary but will run the WebApp locally and expose the Endpoints at Port: ``8084``
 
-
 # Endpoints
-
----
 
 ## `Create Task`
 
@@ -147,7 +139,6 @@ docker-compose down
     ]
 }
 ```
----
 
 ## `Create Subtask`
 * Persist a Subtask under a particular Task into the database.
@@ -165,7 +156,6 @@ docker-compose down
   "description": "New SubTask Description"
 }
 ```
----
 
 ##  `Create Nested Subtask`
 * Persist nested Subtasks under a Task and Subtask into the database.
@@ -184,7 +174,6 @@ docker-compose down
   "description": "New Nested Subtask Description"
 }
 ```
----
 
 ## `Get Task`
 * Retrieve a Task from the database.
@@ -196,8 +185,6 @@ docker-compose down
 | Payload      |             |
 | Header       |    `id`     |
 
----
-
 ## `Get All Tasks`
 * Retrieve all Tasks in the database.
 
@@ -207,8 +194,6 @@ docker-compose down
 | Request URL  | `/get/all-tasks` |
 | Payload      |                  |
 | Header       |                  |
-
----
 
 ## ``Update Task``
 * Update a Task's information.
@@ -226,8 +211,6 @@ docker-compose down
   "description": "Updated Description"
 }
 ```
-
----
 
 ## `Update Subtask`
 * Update a Subtask's or nested Subtask's information.
@@ -247,8 +230,6 @@ docker-compose down
 }
 ```
 
----
-
 ## `Delete Task`
 * Delete a Task from the database.
 
@@ -258,8 +239,6 @@ docker-compose down
 | Request URL  | `/delete/task` |
 | Payload      |                |
 | Header       |      `id`      |
-
----
 
 ## `Delete Subtask`
 * Delete a Subtask or nested Subtask from the database.
@@ -271,7 +250,5 @@ docker-compose down
 | Payload      |                   |
 | Header       |       `id`        |
 | Header       |    `subtaskId`    |
-
----
 
 
