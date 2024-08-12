@@ -1,6 +1,6 @@
 # Task Manager
 
-This is a Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
+Spring Webflux Reactive Web Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
 ## Prerequisites
 
