@@ -52,8 +52,8 @@ Open a bash terminal at the project directory and use the following commands to 
 docker-compose up --build
 ```
 * This will create the docker images, volumes and containers for
-* * Task Manager WebApp and expose the Endpoints at Port: ``8084``
-* * MongoDB and expose it at Port: ``27017``
+  * Task Manager WebApp and expose the Endpoints at Port: ``8084``
+  * MongoDB and expose it at Port: ``27017``
 
 ```bash
 docker-compose up -d
@@ -75,8 +75,8 @@ docker-compose down
 ## `Create Task`
 
 * Persist a Task along with Subtasks if desired in one request into the database.
-* Subtasks are given a formatted id when a Task is created.
-* Returns the generated Task ObjectId
+    * Subtasks are given a formatted id when a Task is created.
+    * Returns the generated Task ObjectId
 
 | Key          |  Information   |
 |:-------------|:--------------:|
