@@ -1,6 +1,6 @@
 # Task Manager
 
-This is a Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
+Spring Webflux Reactive CRUD Application that creates, retrieves, updates and deletes Tasks in MongoDB.
 
 ## Prerequisites
 
@@ -9,8 +9,6 @@ To run the project you will need to have the following installed
 * Java 17
 * Docker
 
-This project uses gradle as a build tool. It contains the gradlew wrapper script so there's no need to install gradle.
-
 ### Environment Variables
 
 * This is required when building and running in the local environment.
@@ -18,8 +16,6 @@ This project uses gradle as a build tool. It contains the gradlew wrapper script
 |        Variable        |                  Value                  |
 |:----------------------:|:---------------------------------------:|
 | `SPRING_DATA_MONGODB`  | `mongodb://admin:admin@localhost:27017` |
-
-The docker scripts will set the environment variable value to suit the dockerised version of the application + mongodb.
 
 # Testing
 
@@ -74,9 +70,9 @@ docker-compose down
 
 ## `Create Task`
 
-* Persist a Task along with Subtasks if desired in one request into the database.
-    * Subtasks are given a formatted id when a Task is created.
-    * Returns the generated Task ObjectId
+* With Subtasks if desired, in one request.
+    * Subtasks are given a formatted id.
+    * Returns the generated Task ObjectId.
 
 | Key          |  Information   |
 |:-------------|:--------------:|
@@ -95,20 +91,24 @@ docker-compose down
             "description": "Use `mono` and `flux` from Project Reactor.",
             "subTasks": [
                 {
-                    "title": "Write the Get Controller and Service",
-                    "description": "GET"
+                  "title": "POST",
+                  "description": "Write the POST Controller and Service"
                 },
                 {
-                    "title": "Write the POST Controller and Service",
-                    "description": "POST"
+                    "title": "GET",
+                    "description": "Write the Get Controller and Service"
                 },
                 {
-                    "title": "Write the DELETE Controller and Service",
-                    "description": "DELETE"
+                    "title": "DELETE",
+                    "description": "Write the DELETE Controller and Service"
                 },
                 {
-                    "title": "Write the UPDATE Controller and Service",
-                    "description": "PUT"
+                    "title": "UPDATE",
+                    "description": "Write the UPDATE Controller and Service"
+                },
+                {
+                  "title": "Queries",
+                  "description": "Make use of Queries to Get, Update and Delete Multiple Tasks"
                 }
             ]
         },
@@ -125,10 +125,6 @@ docker-compose down
                             "description": "This will make everything very easy to setup on another machine."
                         },
                         {
-                            "title": "Write the dockerignore file",
-                            "description": "This will make everything very easy to setup on another machine."
-                        },
-                        {
                             "title": "Write the docker.compose file",
                             "description": "This will make everything very easy to setup on another machine."
                         }
@@ -141,7 +137,6 @@ docker-compose down
 ```
 
 ## `Create Subtask`
-* Persist a Subtask under a particular Task into the database.
 
 | Key          |    Information    |
 |:-------------|:-----------------:|
@@ -158,7 +153,6 @@ docker-compose down
 ```
 
 ##  `Create Nested Subtask`
-* Persist nested Subtasks under a Task and Subtask into the database.
 
 | Key          |       Information        |
 |:-------------|:------------------------:|
@@ -177,7 +171,6 @@ docker-compose down
 ```
 
 ## `Get Task`
-* Retrieve a Task from the database.
 
 | Key          | Information |
 |:-------------|:-----------:|
@@ -188,7 +181,6 @@ docker-compose down
 
 
 ## `Get All Tasks`
-* Retrieve all Tasks in the database.
 
 | Key          |   Information    |
 |:-------------|:----------------:|
@@ -199,7 +191,6 @@ docker-compose down
 
 
 ## ``Update Task``
- Update a Task's information.
 
 | Key          |  Information   |
 |:-------------|:--------------:|
@@ -217,7 +208,6 @@ docker-compose down
 ```
 
 ## `Update Subtask`
-* Update a Subtask's or nested Subtask's information.
 
 | Key          |    Information    |
 |:-------------|:-----------------:|
@@ -235,7 +225,6 @@ docker-compose down
 ```
 
 ## `Delete Task`
-* Delete a Task from the database.
 
 | Key          |  Information   |
 |:-------------|:--------------:|
@@ -246,7 +235,6 @@ docker-compose down
 
 
 ## `Delete Subtask`
-* Delete a Subtask or nested Subtask from the database.
 
 | Key          |    Information    |
 |:-------------|:-----------------:|
