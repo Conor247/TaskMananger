@@ -9,15 +9,15 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/create")
 public class CreateTaskController {
-    private final CreateTaskInterface createTaskService;
+    private final CreateTaskInterface createTaskInterface;
 
-    public CreateTaskController(CreateTaskInterface createTaskService) {
-        this.createTaskService = createTaskService;
+    public CreateTaskController(CreateTaskInterface createTaskInterface) {
+        this.createTaskInterface = createTaskInterface;
     }
 
     @PostMapping(path = "/task", consumes = {"application/json"})
     public Mono<ResponseEntity<String>> createTask(@RequestBody Task requestBody) {
-        return createTaskService.createTask(requestBody)
+        return createTaskInterface.createTask(requestBody)
                 .map(createdTask -> ResponseEntity.ok(String.format("Task created with id: %s", createdTask.getId())))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(500).body("Error: " + e.getMessage())));
     }
@@ -26,7 +26,7 @@ public class CreateTaskController {
     public Mono<ResponseEntity<String>> createSubTask(
             @RequestBody Task requestBody,
             @RequestHeader("id") String id) {
-        return createTaskService.createSubTaskById(requestBody, id)
+        return createTaskInterface.createSubTaskById(requestBody, id)
                 .map(task -> ResponseEntity.ok(String.format("SubTask created under Task with id: %s", id)))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(500).body("Error: " + e.getMessage())));
     }
@@ -36,7 +36,7 @@ public class CreateTaskController {
             @RequestBody Task requestBody,
             @RequestHeader("id") String id,
             @RequestHeader("subtaskId") String subtaskId) {
-        return createTaskService.createNestedSubTaskById(requestBody, id, subtaskId)
+        return createTaskInterface.createNestedSubTaskById(requestBody, id, subtaskId)
                 .map(task -> ResponseEntity.ok(
                                 String.format("Nested SubTask created under Task with id: %s and SubTask id: %s",
                                         id, subtaskId)))

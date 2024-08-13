@@ -13,15 +13,15 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/get")
 public class GetTaskController {
 
-    private final GetTaskInterface getTaskService;
+    private final GetTaskInterface getTaskInterface;
 
-    public GetTaskController(GetTaskInterface getTaskService) {
-        this.getTaskService = getTaskService;
+    public GetTaskController(GetTaskInterface getTaskInterface) {
+        this.getTaskInterface = getTaskInterface;
     }
 
     @GetMapping(path = "/task")
     public Mono<Task> getTask(@RequestHeader("id") String id) {
-        return getTaskService.getTaskById(id)
+        return getTaskInterface.getTaskById(id)
                 .onErrorResume(e -> {
                     final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
                     log.error("Error retrieving tasks", e);
@@ -31,7 +31,7 @@ public class GetTaskController {
 
     @GetMapping("/all-tasks")
         public Flux<Task> getAllTasks() {
-        return getTaskService.getAllTasks()
+        return getTaskInterface.getAllTasks()
                 .onErrorResume(e -> {
                     final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
                     log.error("Error retrieving tasks", e);

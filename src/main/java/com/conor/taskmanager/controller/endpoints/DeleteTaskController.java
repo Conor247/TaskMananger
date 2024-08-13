@@ -7,23 +7,23 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/delete")
 public class DeleteTaskController {
-    private final DeleteTaskInterface deleteTaskService;
+    private final DeleteTaskInterface deleteTaskInterface;
 
-    public DeleteTaskController(DeleteTaskInterface deleteTaskService) {
-        this.deleteTaskService = deleteTaskService;
+    public DeleteTaskController(DeleteTaskInterface deleteTaskInterface) {
+        this.deleteTaskInterface = deleteTaskInterface;
     }
 
     @DeleteMapping(path = "/task")
     public Mono<Void> deleteTask(
             @RequestHeader("id") String id) {
-        return deleteTaskService.deleteTaskById(id);
+        return deleteTaskInterface.deleteTaskById(id);
     }
 
     @DeleteMapping(path = "/subtask")
     public Mono<Void> deleteSubTasks(
             @RequestHeader("id") String id,
             @RequestHeader("subtaskId") String subtaskId) {
-        return deleteTaskService.deleteSubtaskById(id, subtaskId).then();
+        return deleteTaskInterface.deleteSubtaskById(id, subtaskId).then();
     }
 
 }
