@@ -1,18 +1,17 @@
 package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.UpdateTaskService;
+import com.conor.taskmanager.domain.service.UpdateTaskInterface;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-@Controller
+@RestController
 @RequestMapping("/update")
 public class UpdateTaskController {
-    UpdateTaskService updateTaskService;
+    private final UpdateTaskInterface updateTaskService;
 
-    public UpdateTaskController(UpdateTaskService updateTaskService) {
+    public UpdateTaskController(UpdateTaskInterface updateTaskService) {
         this.updateTaskService = updateTaskService;
     }
 

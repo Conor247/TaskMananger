@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class DeleteTaskService extends AbstractTaskService {
+public class DeleteTaskService extends AbstractTaskService implements DeleteTaskInterface {
 
     public DeleteTaskService(ReactiveMongoTemplate taskRepository) {
         super(taskRepository);
@@ -24,13 +24,13 @@ public class DeleteTaskService extends AbstractTaskService {
                 .then();
     }
 
-    public Mono<Task> deleteSubtaskById(String id, String subtaskId) {
+    public Mono<Void> deleteSubtaskById(String id, String subtaskId) {
         Query query = new Query(Criteria.where("id").is(id));
 
         return taskRepository.findOne(query, Task.class)
                 .flatMap(task -> {
                     if (findSubTaskPerformOperation(task, subtaskId, null)) {
-                        return taskRepository.save(task);
+                        return taskRepository.save(task).then();
                     } else {
                         return Mono.empty();
                     }

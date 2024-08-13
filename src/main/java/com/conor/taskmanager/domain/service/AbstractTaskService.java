@@ -12,32 +12,10 @@ public abstract class AbstractTaskService {
 
     protected final ReactiveMongoTemplate taskRepository;
 
+    //Template Method Pattern
     @Autowired
     public AbstractTaskService(ReactiveMongoTemplate taskRepository) {
         this.taskRepository = taskRepository;
-    }
-
-    protected void assignIdsToSubTasks(Collection<Task> subTasks) {
-        Queue<Task> queue = new LinkedList<>(subTasks);
-        int index = 1;
-
-        while (!queue.isEmpty()) {
-            Task currentTask = queue.poll();
-
-            if (currentTask.getId() == null || currentTask.getId().isEmpty()) {
-                currentTask.setId(String.valueOf(index));
-            }
-            index++;
-
-            if (currentTask.getSubTasks() != null) {
-                int subIndex = 1;
-                for (Task subTask : currentTask.getSubTasks()) {
-                    subTask.setId(currentTask.getId() + "." + subIndex);
-                    queue.add(subTask);
-                    subIndex++;
-                }
-            }
-        }
     }
 
     //Using a queue to perform a breadth first search on the subtask tree

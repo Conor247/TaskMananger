@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class UpdateTaskService extends AbstractTaskService {
+public class UpdateTaskService extends AbstractTaskService implements UpdateTaskInterface {
 
     public UpdateTaskService(ReactiveMongoTemplate taskRepository) {
         super(taskRepository);

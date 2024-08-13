@@ -2,10 +2,9 @@ package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
 import com.conor.taskmanager.domain.service.CreateTaskService;
-import com.conor.taskmanager.domain.service.GetTaskService;
+import com.conor.taskmanager.domain.service.GetTaskInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,10 +13,9 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/get")
 public class GetTaskController {
 
-    private final GetTaskService getTaskService;
+    private final GetTaskInterface getTaskService;
 
-    @Autowired
-    public GetTaskController(GetTaskService getTaskService) {
+    public GetTaskController(GetTaskInterface getTaskService) {
         this.getTaskService = getTaskService;
     }
 

@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class GetTaskService extends AbstractTaskService {
+public class GetTaskService extends AbstractTaskService implements GetTaskInterface {
 
     public GetTaskService(ReactiveMongoTemplate taskRepository) {
         super(taskRepository);

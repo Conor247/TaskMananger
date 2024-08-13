@@ -9,11 +9,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 @Service
-public class CreateTaskService extends AbstractTaskService {
+public class CreateTaskService extends AbstractTaskService implements CreateTaskInterface {
 
     public CreateTaskService(ReactiveMongoTemplate taskRepository) {
         super(taskRepository);
@@ -61,5 +60,28 @@ public class CreateTaskService extends AbstractTaskService {
             currentSubTask.setSubTasks(new ArrayList<>(Collections.singletonList(task)));
         }
         return true;
+    }
+
+    protected void assignIdsToSubTasks(Collection<Task> subTasks) {
+        Queue<Task> queue = new LinkedList<>(subTasks);
+        int index = 1;
+
+        while (!queue.isEmpty()) {
+            Task currentTask = queue.poll();
+
+            if (currentTask.getId() == null || currentTask.getId().isEmpty()) {
+                currentTask.setId(String.valueOf(index));
+            }
+            index++;
+
+            if (currentTask.getSubTasks() != null) {
+                int subIndex = 1;
+                for (Task subTask : currentTask.getSubTasks()) {
+                    subTask.setId(currentTask.getId() + "." + subIndex);
+                    queue.add(subTask);
+                    subIndex++;
+                }
+            }
+        }
     }
 }

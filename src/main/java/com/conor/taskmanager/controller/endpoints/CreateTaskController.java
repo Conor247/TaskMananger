@@ -1,7 +1,7 @@
 package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.CreateTaskService;
+import com.conor.taskmanager.domain.service.CreateTaskInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/create")
 public class CreateTaskController {
-    CreateTaskService createTaskService;
+    private final CreateTaskInterface createTaskService;
 
-    public CreateTaskController(CreateTaskService createTaskService) {
+    public CreateTaskController(CreateTaskInterface createTaskService) {
         this.createTaskService = createTaskService;
     }
 

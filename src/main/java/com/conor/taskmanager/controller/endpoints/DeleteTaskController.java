@@ -1,15 +1,15 @@
 package com.conor.taskmanager.controller.endpoints;
 
-import com.conor.taskmanager.domain.service.DeleteTaskService;
+import com.conor.taskmanager.domain.service.DeleteTaskInterface;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/delete")
 public class DeleteTaskController {
-    DeleteTaskService deleteTaskService;
+    private final DeleteTaskInterface deleteTaskService;
 
-    public DeleteTaskController(DeleteTaskService deleteTaskService) {
+    public DeleteTaskController(DeleteTaskInterface deleteTaskService) {
         this.deleteTaskService = deleteTaskService;
     }
 
@@ -18,7 +18,6 @@ public class DeleteTaskController {
             @RequestHeader("id") String id) {
         return deleteTaskService.deleteTaskById(id);
     }
-
 
     @DeleteMapping(path = "/subtask")
     public Mono<Void> deleteSubTasks(
