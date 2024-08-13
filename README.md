@@ -242,3 +242,16 @@ docker-compose down
 | Header       |       `id`        |
 | Header       |    `subtaskId`    |
 | Body Type    |                   |
+
+# Technical Features
+
+### Breadth First Search Algorithm (BFS)
+  * Necessary to find Subtasks by their id under a given Task.
+  * Chosen because Subtasks are increasingly more unlikely to exist deeply nested.
+  * Avoids recursion.
+
+### Template Method Pattern
+  * Invoked in the findSubTaskPerformOperation() method in the AbstractTaskService class.
+  * Necessary to find subtasks using BFS in the Create, Update and Delete Services.
+  * The performOperation() method is overridden in each service to specify what operations are to be done when findSubTaskPerformOperation() is called in each Service.
+  * Avoids duplication of code.
