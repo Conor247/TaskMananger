@@ -1,7 +1,7 @@
 package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.UpdateTaskInterface;
+import com.conor.taskmanager.domain.service.update.UpdateTaskInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

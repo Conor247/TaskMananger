@@ -1,6 +1,6 @@
 package com.conor.taskmanager.controller.endpoints;
 
-import com.conor.taskmanager.domain.service.DeleteTaskInterface;
+import com.conor.taskmanager.domain.service.delete.DeleteTaskInterface;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 

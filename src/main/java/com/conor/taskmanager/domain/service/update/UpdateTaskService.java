@@ -1,6 +1,8 @@
-package com.conor.taskmanager.domain.service;
+package com.conor.taskmanager.domain.service.update;
 
 import com.conor.taskmanager.domain.model.Task;
+import com.conor.taskmanager.domain.service.AbstractTaskService;
+import com.conor.taskmanager.domain.service.update.UpdateTaskInterface;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

@@ -1,8 +1,7 @@
 package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.CreateTaskInterface;
-import com.conor.taskmanager.domain.service.CreateTaskService;
+import com.conor.taskmanager.domain.service.create.CreateTaskInterface;
 import com.conor.taskmanager.helper.TestDataBuilder;
 
 import org.junit.jupiter.api.BeforeEach;

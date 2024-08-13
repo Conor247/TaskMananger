@@ -1,4 +1,4 @@
-package com.conor.taskmanager.domain.service;
+package com.conor.taskmanager.domain.service.delete;
 
 import com.conor.taskmanager.domain.model.Task;
 import reactor.core.publisher.Mono;
