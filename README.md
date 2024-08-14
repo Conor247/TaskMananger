@@ -234,7 +234,7 @@ docker-compose down
 
 | Key          |       Information        |
 |:-------------|:------------------------:|
-| Request Type |          UPDATE          |
+| Request Type |           PUT            |
 | Request URL  | `/update/remove-subtask` |
 | Header       |           `id`           |
 | Header       |       `subtaskId`        |
