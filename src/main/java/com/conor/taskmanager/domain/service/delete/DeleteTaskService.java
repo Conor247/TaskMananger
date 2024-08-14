@@ -3,6 +3,7 @@ package com.conor.taskmanager.domain.service.delete;
 import com.conor.taskmanager.domain.model.Task;
 import com.conor.taskmanager.domain.service.AbstractTaskService;
 import com.conor.taskmanager.domain.service.create.CreateTaskService;
+import com.mongodb.client.result.DeleteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -18,30 +19,10 @@ public class DeleteTaskService extends AbstractTaskService implements DeleteTask
         super(taskRepository);
     }
 
-    public Mono<Void> deleteTaskById(String id) {
+    public Mono<DeleteResult> deleteTaskById(String id) {
         final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
         Query query = new Query(Criteria.where("id").is(id));
         return taskRepository.remove(query, Task.class)
-                .doOnError(e -> log.error("Error occurred while deleting task with id: " + id, e))
-                .then();
-    }
-
-    public Mono<Void> deleteSubtaskById(String id, String subtaskId) {
-        Query query = new Query(Criteria.where("id").is(id));
-
-        return taskRepository.findOne(query, Task.class)
-                .flatMap(task -> {
-                    if (findSubTaskPerformOperation(task, subtaskId, null)) {
-                        return taskRepository.save(task).then();
-                    } else {
-                        return Mono.empty();
-                    }
-                });
-    }
-
-    @Override
-    protected boolean performOperation(Task currentTask, Task subTask, Task updatedTask) {
-        currentTask.getSubTasks().remove(subTask);
-        return true;
+                .doOnError(e -> log.error("Error occurred while deleting task with id: " + id, e));
     }
 }
