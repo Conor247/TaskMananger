@@ -13,6 +13,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -49,13 +52,17 @@ public class GetTaskControllerTest {
 
         when(getTaskInterface.getAllTasks()).thenReturn(Flux.just(task));
 
-        Flux<ResponseEntity<Task>> result = getTaskController.getAllTasks();
+        Mono<ResponseEntity<Flux<Task>>> result = getTaskController.getAllTasks();
 
         verify(getTaskInterface, times(1)).getAllTasks();
 
         StepVerifier.create(result)
-                .expectNext(ResponseEntity.status(HttpStatus.OK)
-                        .body(task))
+                .assertNext(responseEntity -> {
+                    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+                    StepVerifier.create(Objects.requireNonNull(responseEntity.getBody()))
+                            .expectNext(task)
+                            .verifyComplete();
+                })
                 .verifyComplete();
     }
 }

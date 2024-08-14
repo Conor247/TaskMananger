@@ -1,10 +1,7 @@
 package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.create.CreateTaskService;
 import com.conor.taskmanager.domain.service.get.GetTaskInterface;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +27,16 @@ public class GetTaskController {
     }
 
     @GetMapping("/all-tasks")
-        public Flux<ResponseEntity<Task>> getAllTasks() {
+        public Mono<ResponseEntity<Flux<Task>>> getAllTasks() {
         return getTaskInterface.getAllTasks()
-                .map(retrievedTasks -> ResponseEntity.status(HttpStatus.OK)
-                        .body(retrievedTasks))
-                .defaultIfEmpty(ResponseEntity.badRequest().build());
+                .collectList()
+                .flatMap(tasks -> {
+                    if (tasks.isEmpty()) {
+                        return Mono.just(ResponseEntity.noContent().build());
+                    } else {
+                        Flux<Task> taskFlux = Flux.fromIterable(tasks);
+                        return Mono.just(ResponseEntity.ok(taskFlux));
+                    }
+                });
     }
 }
