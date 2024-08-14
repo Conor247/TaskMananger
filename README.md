@@ -249,6 +249,6 @@ docker-compose down
 
 ### Template Method Pattern
   * Invoked in the findSubTaskPerformOperation() method in the AbstractTaskService class.
-  * Necessary to find subtasks using BFS in the Create, Update and Delete Services.
-  * The performOperation() method is overridden in each service to specify what operations are to be done when findSubTaskPerformOperation() is called in each Service.
+  * The performOperation() method is overridden in each service that requires it.
+    * Specifies what operations are done when findSubTaskPerformOperation() is called.
   * Avoids duplication of code.
