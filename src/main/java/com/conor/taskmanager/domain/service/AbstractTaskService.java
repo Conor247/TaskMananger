@@ -40,4 +40,27 @@ public abstract class AbstractTaskService {
     protected boolean performOperation(Task currentTask, Task subTask, Task requestedTask) {
         return false;
     }
+
+    protected void assignIdsToSubTasks(Collection<Task> subTasks) {
+        Queue<Task> queue = new LinkedList<>(subTasks);
+        int index = 1;
+
+        while (!queue.isEmpty()) {
+            Task currentTask = queue.poll();
+
+            if (currentTask.getId() == null || currentTask.getId().isEmpty()) {
+                currentTask.setId(String.valueOf(index));
+            }
+            index++;
+
+            if (currentTask.getSubTasks() != null) {
+                int subIndex = 1;
+                for (Task subTask : currentTask.getSubTasks()) {
+                    subTask.setId(currentTask.getId() + "." + subIndex);
+                    queue.add(subTask);
+                    subIndex++;
+                }
+            }
+        }
+    }
 }

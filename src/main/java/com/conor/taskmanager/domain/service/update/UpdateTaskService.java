@@ -2,7 +2,6 @@ package com.conor.taskmanager.domain.service.update;
 
 import com.conor.taskmanager.domain.model.Task;
 import com.conor.taskmanager.domain.service.AbstractTaskService;
-import com.conor.taskmanager.domain.service.update.UpdateTaskInterface;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -33,7 +32,6 @@ public class UpdateTaskService extends AbstractTaskService implements UpdateTask
         );
     }
 
-    //Using a queue
     public Mono<Task> updateSubTaskById(String id, String subtaskId, Task updatedTask) {
         Query query = new Query(Criteria.where("id").is(id));
 
