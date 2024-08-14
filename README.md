@@ -135,14 +135,14 @@ docker-compose down
 }
 ```
 
-## `Create Subtask`
+## `Add Subtask`
 
-| Key          |    Information    |
-|:-------------|:-----------------:|
-| Request Type |       POST        |
-| Request URL  | `/create/subtask` |
-| Header       |       `id`        |
-| Body Type    |       JSON        |
+| Key          |      Information      |
+|:-------------|:---------------------:|
+| Request Type |          PUT          |
+| Request URL  | `/update/add-subtask` |
+| Header       |         `id`          |
+| Body Type    |         JSON          |
 
 ```json
 {
@@ -151,15 +151,15 @@ docker-compose down
 }
 ```
 
-##  `Create Nested Subtask`
+##  `Add Nested Subtask`
 
-| Key          |       Information        |
-|:-------------|:------------------------:|
-| Request Type |           POST           |
-| Request URL  | `/create/nested-subtask` |
-| Header       |           `id`           |
-| Header       |       `subtaskId`        |
-| Body Type    |           JSON           |
+| Key          |         Information          |
+|:-------------|:----------------------------:|
+| Request Type |             PUT              |
+| Request URL  | `/update/add-nested-subtask` |
+| Header       |             `id`             |
+| Header       |         `subtaskId`          |
+| Body Type    |             JSON             |
 
 
 ```json
@@ -188,7 +188,6 @@ docker-compose down
 | Header       |                  |
 | Body Type    |                  |
 
-
 ## ``Update Task``
 
 | Key          |  Information   |
@@ -197,7 +196,6 @@ docker-compose down
 | Request URL  | `/update/task` |
 | Header       |      `id`      |
 | Body Type    |      JSON      |
-
 
 ```json
 {
@@ -223,18 +221,6 @@ docker-compose down
 }
 ```
 
-## `Remove Subtask`
-
-* Technically this is an Update operation as it modifies the Task's Subtasks by removing one.
-
-| Key          |       Information        |
-|:-------------|:------------------------:|
-| Request Type |          UPDATE          |
-| Request URL  | `/update/remove-subtask` |
-| Header       |           `id`           |
-| Header       |       `subtaskId`        |
-| Body Type    |                          |
-
 ## `Delete Task`
 
 | Key          |  Information   |
@@ -244,6 +230,15 @@ docker-compose down
 | Header       |      `id`      |
 | Body Type    |                |
 
+## `Remove Subtask`
+
+| Key          |       Information        |
+|:-------------|:------------------------:|
+| Request Type |          UPDATE          |
+| Request URL  | `/update/remove-subtask` |
+| Header       |           `id`           |
+| Header       |       `subtaskId`        |
+| Body Type    |                          |
 
 # Technical Features
 

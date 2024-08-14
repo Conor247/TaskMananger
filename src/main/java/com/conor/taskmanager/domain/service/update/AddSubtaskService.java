@@ -18,7 +18,7 @@ public class AddSubtaskService extends AbstractTaskService implements AddSubtask
         super(taskRepository);
     }
 
-    public Mono<Task> addSubTaskById(Task taskRequest, String id) {
+    public Mono<Task> addSubTaskById(String id, Task taskRequest) {
 
         Query query = new Query(Criteria.where("id").is(id));
 
@@ -32,7 +32,7 @@ public class AddSubtaskService extends AbstractTaskService implements AddSubtask
                 });
     }
 
-    public Mono<Task> addNestedSubTaskById(Task subtaskRequest, String id, String subTaskId) {
+    public Mono<Task> addNestedSubTaskById(String id, String subTaskId, Task subtaskRequest) {
 
         Query query = new Query(Criteria.where("id").is(id));
 

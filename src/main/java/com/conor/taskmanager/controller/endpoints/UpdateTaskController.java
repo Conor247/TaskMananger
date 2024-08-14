@@ -25,8 +25,8 @@ public class UpdateTaskController {
 
     @PutMapping(path = "/task", consumes = {"application/json"})
     public Mono<ResponseEntity<Task>> updateTask(
-            @RequestBody Task requestBody,
-            @RequestHeader("id") String id) {
+            @RequestHeader("id") String id,
+            @RequestBody Task requestBody) {
         return updateTaskInterface.updateTaskById(id, requestBody)
                 .map(updatedTask -> ResponseEntity.status(HttpStatus.OK)
                         .body(updatedTask))
@@ -35,9 +35,9 @@ public class UpdateTaskController {
 
     @PutMapping(path = "/subtask", consumes = {"application/json"})
     public Mono<ResponseEntity<Task>> updateSubTask(
-            @RequestBody Task requestBody,
             @RequestHeader("id") String id,
-            @RequestHeader("subtaskId") String subtaskId) {
+            @RequestHeader("subtaskId") String subtaskId,
+            @RequestBody Task requestBody) {
         return updateTaskInterface.updateSubTaskById(id, subtaskId, requestBody)
                 .map(updatedTask -> ResponseEntity.status(HttpStatus.OK)
                         .body(updatedTask))
@@ -56,9 +56,9 @@ public class UpdateTaskController {
 
     @PutMapping(path = "/add-subtask", consumes = {"application/json"})
     public Mono<ResponseEntity<Task>> addSubTask(
-            @RequestBody Task requestBody,
-            @RequestHeader("id") String id) {
-        return addSubtaskInterface.addSubTaskById(requestBody, id)
+            @RequestHeader("id") String id,
+            @RequestBody Task requestBody) {
+        return addSubtaskInterface.addSubTaskById(id, requestBody)
                 .map(updatedTask -> ResponseEntity.status(HttpStatus.OK)
                         .body(updatedTask))
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
@@ -66,10 +66,10 @@ public class UpdateTaskController {
 
     @PutMapping(path = "/add-nested-subtask", consumes = {"application/json"})
     public Mono<ResponseEntity<Task>> addNestedSubTask(
-            @RequestBody Task requestBody,
             @RequestHeader("id") String id,
-            @RequestHeader("subtaskId") String subtaskId) {
-        return addSubtaskInterface.addNestedSubTaskById(requestBody, id, subtaskId)
+            @RequestHeader("subtaskId") String subtaskId,
+            @RequestBody Task requestBody) {
+        return addSubtaskInterface.addNestedSubTaskById(id, subtaskId, requestBody)
                 .map(updatedTask -> ResponseEntity.status(HttpStatus.OK)
                         .body(updatedTask))
                 .defaultIfEmpty(ResponseEntity.badRequest().build());

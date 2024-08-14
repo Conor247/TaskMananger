@@ -5,6 +5,8 @@ import com.conor.taskmanager.domain.service.create.CreateTaskService;
 import com.conor.taskmanager.domain.service.get.GetTaskInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,22 +22,18 @@ public class GetTaskController {
     }
 
     @GetMapping(path = "/task")
-    public Mono<Task> getTask(@RequestHeader("id") String id) {
+    public Mono<ResponseEntity<Task>> getTask(@RequestHeader("id") String id) {
         return getTaskInterface.getTaskById(id)
-                .onErrorResume(e -> {
-                    final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
-                    log.error("Error retrieving tasks", e);
-                    return Mono.empty();
-                });
+                .map(retrievedTask -> ResponseEntity.status(HttpStatus.OK)
+                        .body(retrievedTask))
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/all-tasks")
-        public Flux<Task> getAllTasks() {
+        public Flux<ResponseEntity<Task>> getAllTasks() {
         return getTaskInterface.getAllTasks()
-                .onErrorResume(e -> {
-                    final Logger log = LoggerFactory.getLogger(CreateTaskService.class);
-                    log.error("Error retrieving tasks", e);
-                    return Flux.empty();
-                });
+                .map(retrievedTasks -> ResponseEntity.status(HttpStatus.OK)
+                        .body(retrievedTasks))
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
 }
