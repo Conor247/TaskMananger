@@ -1,21 +1,12 @@
-package com.conor.taskmanager.domain.service;
+package com.conor.taskmanager.domain.service.common;
 
 import com.conor.taskmanager.domain.model.Task;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public abstract class AbstractTaskService {
-
-    protected final ReactiveMongoTemplate taskRepository;
-
-    @Autowired
-    public AbstractTaskService(ReactiveMongoTemplate taskRepository) {
-        this.taskRepository = taskRepository;
-    }
 
     //Template Method Pattern
     //Using a queue to perform a breadth first search on the subtask tree

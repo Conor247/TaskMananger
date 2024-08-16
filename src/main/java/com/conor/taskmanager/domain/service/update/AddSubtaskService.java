@@ -1,8 +1,8 @@
 package com.conor.taskmanager.domain.service.update;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.AbstractTaskService;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import com.conor.taskmanager.domain.service.common.AbstractTaskService;
+import com.conor.taskmanager.domain.service.common.ReactiveTemplateInterface;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -14,21 +14,19 @@ import java.util.Collections;
 @Service
 public class AddSubtaskService extends AbstractTaskService implements AddSubtaskInterface {
 
-    public AddSubtaskService(ReactiveMongoTemplate taskRepository) {
-        super(taskRepository);
-    }
+    ReactiveTemplateInterface reactiveTemplateInterface;
 
     public Mono<Task> addSubTaskById(String id, Task taskRequest) {
 
         Query query = new Query(Criteria.where("id").is(id));
 
-        return taskRepository.findOne(query, Task.class)
+        return reactiveTemplateInterface.findOne(query)
                 .flatMap(task -> {
                     task.addSubTask(taskRequest);
                     if (task.getSubTasks() != null && !task.getSubTasks().isEmpty()) {
                         assignIdsToSubTasks(task.getSubTasks());
                     }
-                    return taskRepository.save(task);
+                    return reactiveTemplateInterface.saveTask(task);
                 });
     }
 
@@ -36,13 +34,13 @@ public class AddSubtaskService extends AbstractTaskService implements AddSubtask
 
         Query query = new Query(Criteria.where("id").is(id));
 
-        return taskRepository.findOne(query, Task.class)
+        return reactiveTemplateInterface.findOne(query)
                 .flatMap(task -> {
                     if (findSubTaskPerformOperation(task, subTaskId, subtaskRequest)) {
                         if (task.getSubTasks() != null && !task.getSubTasks().isEmpty()) {
                             assignIdsToSubTasks(task.getSubTasks());
                         }
-                        return taskRepository.save(task);
+                        return reactiveTemplateInterface.saveTask(task);
                     } else {
                         return Mono.empty();
                     }

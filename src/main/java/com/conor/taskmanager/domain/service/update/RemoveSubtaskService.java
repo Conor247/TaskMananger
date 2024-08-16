@@ -1,9 +1,8 @@
 package com.conor.taskmanager.domain.service.update;
 
 import com.conor.taskmanager.domain.model.Task;
-import com.conor.taskmanager.domain.service.AbstractTaskService;
-import com.mongodb.client.result.DeleteResult;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import com.conor.taskmanager.domain.service.common.AbstractTaskService;
+import com.conor.taskmanager.domain.service.common.ReactiveTemplateInterface;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -12,17 +11,15 @@ import reactor.core.publisher.Mono;
 @Service
 public class RemoveSubtaskService extends AbstractTaskService implements RemoveSubtaskInterface {
 
-    public RemoveSubtaskService(ReactiveMongoTemplate taskRepository) {
-        super(taskRepository);
-    }
+    ReactiveTemplateInterface reactiveTemplateInterface;
 
     public Mono<Task> removeSubtaskById(String id, String subtaskId) {
         Query query = new Query(Criteria.where("id").is(id));
 
-        return taskRepository.findOne(query, Task.class)
+        return reactiveTemplateInterface.findOne(query)
                 .flatMap(task -> {
                     if (findSubTaskPerformOperation(task, subtaskId, null)) {
-                        return taskRepository.save(task);
+                        return reactiveTemplateInterface.saveTask(task);
                     } else {
                         return Mono.empty();
                     }
