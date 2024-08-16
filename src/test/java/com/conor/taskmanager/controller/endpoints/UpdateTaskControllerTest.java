@@ -6,9 +6,10 @@ import com.conor.taskmanager.domain.service.update.RemoveSubtaskInterface;
 import com.conor.taskmanager.domain.service.update.UpdateTaskInterface;
 import com.conor.taskmanager.helper.TestDataBuilder;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
@@ -17,21 +18,20 @@ import reactor.test.StepVerifier;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UpdateTaskControllerTest {
 
-    @MockBean
+    @Mock
     private UpdateTaskInterface updateTaskInterface;
-    @MockBean
+    @Mock
     private RemoveSubtaskInterface removeSubtaskInterface;
-    @MockBean
+    @Mock
     private AddSubtaskInterface addSubtaskInterface;
-
-    @Autowired
+    @InjectMocks
     private UpdateTaskController updateTaskController;
 
     @Test
-    void updateTask() {
+    void updateTaskTest() {
         Task task = TestDataBuilder.buildTask();
 
         when(updateTaskInterface.updateTaskById(anyString(), any(Task.class))).thenReturn(Mono.just(task));
@@ -47,7 +47,7 @@ public class UpdateTaskControllerTest {
     }
 
     @Test
-    void updateSubTask() {
+    void updateSubTaskTest() {
         Task task = TestDataBuilder.buildTaskWithSubTask();
 
         when(updateTaskInterface.updateSubTaskById(anyString(), anyString(), any(Task.class))).thenReturn(Mono.just(task));
@@ -63,7 +63,7 @@ public class UpdateTaskControllerTest {
     }
 
     @Test
-    void removeSubTask() {
+    void removeSubTaskTest() {
 
         Task task = TestDataBuilder.buildTask();
 
@@ -80,7 +80,7 @@ public class UpdateTaskControllerTest {
     }
 
     @Test
-    void addSubTask() {
+    void addSubTaskTest() {
 
         Task task = TestDataBuilder.buildTask();
 
@@ -97,7 +97,7 @@ public class UpdateTaskControllerTest {
     }
 
     @Test
-    void addNestedSubTask() {
+    void addNestedSubTaskTest() {
 
         Task task = TestDataBuilder.buildTask();
 

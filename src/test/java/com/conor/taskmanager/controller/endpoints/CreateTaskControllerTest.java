@@ -4,12 +4,11 @@ import com.conor.taskmanager.domain.model.Task;
 import com.conor.taskmanager.domain.service.create.CreateTaskInterface;
 import com.conor.taskmanager.helper.TestDataBuilder;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
@@ -18,20 +17,13 @@ import reactor.test.StepVerifier;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class CreateTaskControllerTest {
 
-    @MockBean
+    @Mock
     private CreateTaskInterface createTaskInterface;
-
-    @Autowired
+    @InjectMocks
     private CreateTaskController createTaskController;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void createTaskTest() {

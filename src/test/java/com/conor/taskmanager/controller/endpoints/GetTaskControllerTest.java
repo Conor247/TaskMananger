@@ -4,9 +4,10 @@ import com.conor.taskmanager.domain.model.Task;
 import com.conor.taskmanager.domain.service.get.GetTaskInterface;
 import com.conor.taskmanager.helper.TestDataBuilder;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
@@ -19,17 +20,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class GetTaskControllerTest {
 
-    @MockBean
+    @Mock
     private GetTaskInterface getTaskInterface;
-
-    @Autowired
+    @InjectMocks
     private GetTaskController getTaskController;
 
     @Test
-    void getTask() {
+    void getTaskTest() {
 
         Task task = TestDataBuilder.buildTask();
 
@@ -46,7 +46,7 @@ public class GetTaskControllerTest {
     }
 
     @Test
-    void getAllTasks() {
+    void getAllTasksTest() {
 
         Task task = TestDataBuilder.buildTask();
 

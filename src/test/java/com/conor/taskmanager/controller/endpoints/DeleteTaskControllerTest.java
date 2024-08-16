@@ -2,30 +2,23 @@ package com.conor.taskmanager.controller.endpoints;
 
 import com.conor.taskmanager.domain.service.delete.DeleteTaskInterface;
 import com.mongodb.client.result.DeleteResult;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class DeleteTaskControllerTest {
 
-    @MockBean
+    @Mock
     private DeleteTaskInterface deleteTaskInterface;
-
-    @Autowired
+    @InjectMocks
     private DeleteTaskController deleteTaskController;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     public void deleteTaskTest() {
