@@ -42,7 +42,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
-    pitest("org.pitest:pitest-junit5-plugin:0.14")
+    pitest("org.pitest:pitest-junit5-plugin:0.15")
 
     testImplementation("org.mockito:mockito-core:5.12.0")
 
