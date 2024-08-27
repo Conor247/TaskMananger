@@ -2,9 +2,12 @@ package com.conor.taskmanager.helper;
 
 import com.conor.taskmanager.domain.model.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestDataBuilder {
 
@@ -16,9 +19,28 @@ public class TestDataBuilder {
                 .build();
     }
 
+    public static Task buildSubTask() {
+        return buildTask().addSubTask(Task.builder()
+                .title("SubTask Title")
+                .description("SubTask Description")
+                .build());
+    }
+
     public static Task buildTaskWithSubTask() {
         return buildTask().addSubTask(Task.builder()
                 .id("1")
+                .title("SubTask Title")
+                .description("SubTask Description")
+                .build());
+    }
+
+    public static Flux<Task> buildTaskFlux() {
+        List<Task> tasks = Arrays.asList(buildTaskWithSubTask(), buildTask());
+        return Flux.fromIterable(tasks);
+    }
+
+    public static Task buildTaskWithSubTaskNoId() {
+        return buildTask().addSubTask(Task.builder()
                 .title("SubTask Title")
                 .description("SubTask Description")
                 .build());
