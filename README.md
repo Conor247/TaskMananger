@@ -1,6 +1,18 @@
 # Task Manager
 
 Spring Webflux Reactive Web Application that creates, retrieves, updates and deletes Tasks in MongoDB.
+## Technical Features
+
+### Breadth First Search Algorithm (BFS)
+* Necessary to find Subtasks by their id under a given Task.
+* Chosen because Subtasks are increasingly more unlikely to exist deeply nested.
+* Avoids recursion.
+
+### Template Method Pattern
+* Invoked in the findSubTaskPerformOperation() method in the AbstractTaskService class.
+* The performOperation() method is overridden in each service that requires it.
+    * Specifies what operations are done when findSubTaskPerformOperation() is called.
+* Avoids duplication of code.
 
 ## Prerequisites
 
@@ -239,16 +251,3 @@ docker-compose down
 | Header       |           `id`           |
 | Header       |       `subtaskId`        |
 | Body Type    |                          |
-
-# Technical Features
-
-### Breadth First Search Algorithm (BFS)
-  * Necessary to find Subtasks by their id under a given Task.
-  * Chosen because Subtasks are increasingly more unlikely to exist deeply nested.
-  * Avoids recursion.
-
-### Template Method Pattern
-  * Invoked in the findSubTaskPerformOperation() method in the AbstractTaskService class.
-  * The performOperation() method is overridden in each service that requires it.
-    * Specifies what operations are done when findSubTaskPerformOperation() is called.
-  * Avoids duplication of code.
