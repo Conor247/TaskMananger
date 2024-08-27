@@ -11,7 +11,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class RemoveSubtaskService extends AbstractTaskService implements RemoveSubtaskInterface {
 
-    ReactiveTemplateInterface reactiveTemplateInterface;
+    private final ReactiveTemplateInterface reactiveTemplateInterface;
+
+    public RemoveSubtaskService(ReactiveTemplateInterface reactiveTemplateInterface) {
+        this.reactiveTemplateInterface = reactiveTemplateInterface;
+    }
 
     public Mono<Task> removeSubtaskById(String id, String subtaskId) {
         Query query = new Query(Criteria.where("id").is(id));

@@ -14,7 +14,11 @@ import java.util.Collections;
 @Service
 public class AddSubtaskService extends AbstractTaskService implements AddSubtaskInterface {
 
-    ReactiveTemplateInterface reactiveTemplateInterface;
+    private final ReactiveTemplateInterface reactiveTemplateInterface;
+
+    public AddSubtaskService(ReactiveTemplateInterface reactiveTemplateInterface) {
+        this.reactiveTemplateInterface = reactiveTemplateInterface;
+    }
 
     public Mono<Task> addSubTaskById(String id, Task taskRequest) {
 

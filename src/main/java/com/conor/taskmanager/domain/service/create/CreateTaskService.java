@@ -11,7 +11,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class CreateTaskService extends AbstractTaskService implements CreateTaskInterface {
 
-    ReactiveTemplateInterface reactiveTemplateInterface;
+    private final ReactiveTemplateInterface reactiveTemplateInterface;
+
+    public CreateTaskService(ReactiveTemplateInterface reactiveTemplateInterface) {
+        this.reactiveTemplateInterface = reactiveTemplateInterface;
+    }
 
     public Mono<Task> createTask(Task taskRequest) {
         final Logger log = LoggerFactory.getLogger(CreateTaskService.class);

@@ -14,7 +14,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class DeleteTaskService extends AbstractTaskService implements DeleteTaskInterface {
 
-    ReactiveTemplateInterface reactiveTemplateInterface;
+    private final ReactiveTemplateInterface reactiveTemplateInterface;
+
+    public DeleteTaskService(ReactiveTemplateInterface reactiveTemplateInterface) {
+        this.reactiveTemplateInterface = reactiveTemplateInterface;
+    }
 
     public Mono<DeleteResult> deleteTaskById(String id) {
         final Logger log = LoggerFactory.getLogger(CreateTaskService.class);

@@ -12,7 +12,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class UpdateTaskService extends AbstractTaskService implements UpdateTaskInterface {
 
-    ReactiveTemplateInterface reactiveTemplateInterface;
+    private final ReactiveTemplateInterface reactiveTemplateInterface;
+
+    public UpdateTaskService(ReactiveTemplateInterface reactiveTemplateInterface) {
+        this.reactiveTemplateInterface = reactiveTemplateInterface;
+    }
 
     public Mono<Task> updateTaskById(String id, Task updatedTask) {
         Query query = new Query(Criteria.where("id").is(id));
